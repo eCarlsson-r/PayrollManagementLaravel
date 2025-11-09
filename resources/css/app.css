@@ -1,0 +1,16 @@
+/*@import 'tailwindcss';*/
+@import url("//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css");
+@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css");
+@import url("//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/2.3.0-j5/jasny-bootstrap.min.css");
+@import url("//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.0/css/jquery.dataTables.min.css");
+@import url("//cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.1.9/css/fileinput.min.css");
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
