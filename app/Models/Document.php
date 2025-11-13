@@ -11,7 +11,7 @@ class Document extends Model
     use HasFactory;
     protected $table = "documents";
     protected $primaryKey = 'id';
-    protected $fillable = ['employee_id', 'manager', 'subject', 'file', 'file_name', 'file_path', 'read'];
+    protected $fillable = ['employee_id', 'manager', 'subject', 'file', 'file_name', 'file_path', 'verified'];
     protected $guarded = ['id'];
 
     public function employee() {

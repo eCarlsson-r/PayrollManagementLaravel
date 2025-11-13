@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Password;
 use App\Models\Employee;
 
 class EmployeeController extends Controller
@@ -51,8 +53,10 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $empID = Employee::where('position', $request->input('position'))->count();
+        if ($request->input('position') == 'Employee') $id = sprintf("SF%06d", $empID+1);
+        else if ($request->input('position') == 'Manager') $id = sprintf("MG%06d", $empID+1);
         $empData = array(
-            'id' => $request->input('position').sprintf("%06d", $empID+1),
+            'id' => $id,
             'bank' => '',
             'bank_account' => '',
             'manager' => 0
@@ -70,7 +74,23 @@ class EmployeeController extends Controller
         if ($request->input('pay_method') == "trnsfr") {
             $empData = array_merge($empData, $request->only(['bank', 'bank_account']));
         }
-        return Employee::create($empData);
+
+        $employee = Employee::create($empData);
+
+        $schemaData = [
+            'scheme' => $request->input('scheme'),
+            'employee_id' => $employee->id
+        ];
+        
+        if ($request->input('scheme') == "HOURLY") {
+            $schemaData['hourly_rate'] = $request->input('hourly_rate');
+        } else if ($request->input('scheme') == "MONTHLY") {
+            $schemaData['base_amount'] = $request->input('base_amount');
+        } else if ($request->input('scheme') == "COMMISSION") {
+            $schemaData['base_amount'] = $request->input('base_amount');
+            $schemaData['base_commision_rate'] = $request->input('base_commision_rate');
+        }
+        return redirect('employee')->with($employee);
     }
     
     /**
@@ -78,7 +98,7 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        return view('Profile', Employee::find($id));
+        return view('Profile', Employee::with('career')->find($id));
     }
 
     /**
@@ -92,8 +112,7 @@ class EmployeeController extends Controller
                     [
                         'id', 'first_name', 'last_name', 'position', 'dob', 
                         'email', 'contact', 'address', 'qualification', 'career', 
-                        'pay_method', 'bank', 'bank_account', 'scheme', 
-                        'hourly_rate', 'salary_amount', 'commission_rate'
+                        'pay_method', 'bank', 'bank_account'
                     ]
                 ),
                 function ($value) {
@@ -102,7 +121,14 @@ class EmployeeController extends Controller
             )
         );
 
-        return redirect('profile');
+        if ($request->input('password') !== "" && $request->input('password') == $request->input('password_confirmation')) {
+            $account = auth()->user();
+            $account->password = Hash::make($request->input('password'));
+            $account->save();
+            event(new PasswordReset($account));
+        }
+
+        return back();
     }
 
     /**

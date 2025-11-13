@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('receipts', function (Blueprint $table) {
             $table->id();
-            $table->string("employee_id", 8);
-            $table->string("email");
-            $table->string("password", 60);
-            $table->string("type", 100);
-            $table->unique("email");
+            $table->foreignId('document_id')->constrained();
+            $table->date('date');
+            $table->decimal('amount', 8, 2);
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('receipts');
     }
 };

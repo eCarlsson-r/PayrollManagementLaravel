@@ -52,18 +52,6 @@
                 <p class="text-muted text-center btn-block btn btn-primary btn-rect">
                     Enter details to signup
                 </p>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <input type="text" name="first_name" placeholder="First Name" class="form-control" />
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text" name="last_name" placeholder="Last Name" class="form-control" />
-                    </div>
-                </div>
-                <select name="position" class="form-control">
-                    <option value="SF">Staff</option>
-                    <option value="MG">Manager</option>
-                </select>
                 <input type="email" name="email" placeholder="Username" class="form-control" />
                 <input type="password" name="password" placeholder="Password" class="form-control" />
                 <button type="submit" name="register" class="btn text-center btn-success">Sign Up</button>

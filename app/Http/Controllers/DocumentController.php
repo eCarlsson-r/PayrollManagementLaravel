@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Vish4395\LaravelFileViewer\LaravelFileViewer;
 use App\Models\Document;
+use App\Models\Timecard;
+use App\Models\Receipt;
 
 class DocumentController extends Controller
 {
@@ -14,7 +16,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        return view('DocumentList', ['request'=> Document::where('manager', '=', auth()->user()->employee->id)->where('read', 'U')->get()]);
+        return view('DocumentList', ['documents'=> Document::where('manager', '=', auth()->user()->employee->id)->where('verified', 'U')->get()]);
     }
 
     /**
@@ -39,7 +41,7 @@ class DocumentController extends Controller
                 'file_name' => $request->file->getClientOriginalName(),
                 'file_path' => $path,
                 'file' => Storage::url($path),
-                'read' => 'U'
+                'verified' => 'U'
             ]);
         }
         return back();
@@ -50,8 +52,7 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        $document = Document::find($id);
-        return LaravelFileViewer::show($document->file_name, $document->file_path, asset($document->file));
+        //
     }
 
     /**
@@ -65,9 +66,24 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        Document::find($id)->update(['read' => 'R']);
+        $document = Document::find($id);
+        if ($document->subject == "Time Card") {
+            Timecard::create([
+                'document_id' => $id,
+                'date' => $request->input('date'),
+                'time_start' => $request->input('time_start'),
+                'time_end' => $request->input('time_end')
+            ]);
+        } elseif ($document->subject == "Sales Receipt") {
+            Receipt::create([
+                'document_id' => $id,
+                'date' => $request->input('date'),
+                'amount' => $request->input('amount')
+            ]);
+        }
+        $document->update(['verified' => 'V']);
         return back();
     }
 

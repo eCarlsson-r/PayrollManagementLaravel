@@ -52,35 +52,29 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label> Position-POS </label>
-                                <select name="position" class="form-control">
-                                    <option value="SF" {{ isset($position) && $position == 'SF' ? 'selected' : '' }}>Staff</option>
-                                    <option value="MG" {{ isset($position) && $position == 'MG' ? 'selected' : '' }}>Manager</option>
+                                <select class="form-control" name="position">
+                                    <option value="Employee" {{ isset($position) && $position == 'Employee' ? 'selected' : '' }}>Employee</option>
+                                    <option value="Manager" {{ isset($position) && $position == 'Manager' ? 'selected' : '' }}>Manager</option>
                                 </select>
                             </div>
 
-                            <label>Employment Scheme</label>
-                            <select class="form-control" id="mScheme" name="Mscheme" onChange="control()" />
-                                <option selected> </option>
-                                <option value="hour">Hourly basis</option>
-                                <option value="slry">Salaried Employee</option>
-                                <option value="comm">Commision</option>
-                            </select>
-                            <div id="hourdtl" class="form-group" style="display:none;">
-                                <label>Hourly Rate</label>
-                                <input type="number" class="form-control" step="0.25" name="rate" />
+                            <div class="form-group">
+                                <label>Employment Scheme</label>
+                                <select class="form-control" name="scheme">
+                                    <option selected> </option>
+                                    <option value="HOURLY" {{ isset($scheme) && $scheme == 'HOURLY' ? 'selected' : '' }}>Hourly basis</option>
+                                    <option value="MONTHLY" {{ isset($scheme) && $scheme == 'MONTHLY' ? 'selected' : '' }}>Salaried Employee</option>
+                                    <option value="COMMISSION" {{ isset($scheme) && $scheme == 'COMMISSION' ? 'selected' : '' }}>Commision</option>
+                                </select>
                             </div>
-                            <div id="salrdtl" class="form-group" style="display:none;">
-                            	<label>Gross Salary</label>
-                                <input type="number" class="form-control" step="0.25" name="Msalary" />
+                            
+                            <div class="form-group">
+                            	<label>Base Amount</label>
+                                <input type="number" class="form-control" name="base_amount" value="{{ $base_amount ?? '' }}" />
                             </div>
-                            <div id="commdtl" class="form-group" style="display:none;">
-                            	<p>
-                                <label>Gross Salary</label>
-                                <input type="number" class="form-control" step="0.25" name="Csalary" />
-                                </p> <p>
-                                <label>Commision</label>
-                                <input type="number" class="form-control" step="0.25" name="commision" />
-                                </p>
+                            <div class="form-group">
+                                <label>Commision Rate (only applicable for Commision employment scheme)</label>
+                                <input type="number" class="form-control" name="base_commision_rate" value="{{ $base_commision_rate ?? '' }}" />
                             </div>
                         </div>
                     </div>

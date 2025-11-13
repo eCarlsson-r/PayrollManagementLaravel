@@ -1,6 +1,6 @@
 @extends('member')
 
-@section('title', 'Send Feedback')
+@section('title', 'File Uploads')
 
 @section('content')
 <div id="content">
@@ -20,7 +20,10 @@
                             <label>Subject of Upload </label>
                         </div>
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" name="subject"/>
+                            <select class="form-control" name="subject"/>
+                                <option value="Time Card">Time Card</option>
+                                <option value="Sales Receipt">Sales Receipt</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -28,23 +31,12 @@
                             <label>Upload File</label>
                         </div>
                         <div class="col-xs-9">
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="form-group">
-                                    <i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span>
-                                    <span class="btn btn-file btn-info">
-                                        <span class="fileupload-new">Select file</span>
-                                        <span class="fileupload-exists">Change</span>
-                                        <input type="file" name="file"/>                                                    
-                                    </span>
-                                    <a class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
-                                    
-                                </div>
-                            </div>
+                            <input type="file" name="file" class="file" accept="image/png, image/jpeg" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button type="submit" name="upload" class="btn btn-success"nnn>Upload Files</button>
+                            <button type="submit" name="upload" class="btn btn-success">Upload Files</button>
                             <button type="reset" class="btn btn-danger">Reset Form</button>
                         </div>
                     </div>

@@ -19,42 +19,25 @@
                     <hr />
                     <nav class="navbar navbar-default">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#personal" data-toggle="tab">Personal</a></li>
-                            <li><a href="#contact" data-toggle="tab">Contact</a></li>
+                            <li><a href="#personal" data-toggle="tab">Personal</a></li>
+                            <li class="active"><a href="#account" data-toggle="tab">Account</a></li>
                             <li><a href="#extras" data-toggle="tab">Extras</a></li>
                             <li class="pull-right"></li>
                         </ul>
                     </nav>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="personal">
+                        <div class="tab-pane" id="personal">
                             <div class="form-group">
                                 <label> First Name </label> 
-                                <input name="first_name" class="form-control" value="{{ $first_name ?? '' }}"/>
+                                <input name="first_name" class="form-control" value="{{ $first_name ?? '' }}" readonly/>
                             </div>
                             <div class="form-group">
                                 <label> Last Name </label>
-                                <input name="last_name" class="form-control" value="{{ $last_name ?? '' }}"/>
-                            </div>
-                            <div class="form-group">
-                                <label> Position-POS </label>
-                                <select name="position" class="form-control">
-                                    <option value="SF" {{ isset($position) && $position == 'SF' ? 'selected' : '' }}>Staff</option>
-                                    <option value="MG" {{ isset($position) && $position == 'MG' ? 'selected' : '' }}>Manager</option>
-                                </select>
+                                <input name="last_name" class="form-control" value="{{ $last_name ?? '' }}" readonly/>
                             </div>
                             <div class="form-group"> 
                                 <label> Date of Birth </label>
-                                <input type="date" name="dob" class="form-control" value="{{ $dob ?? '' }}"/>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="contact">
-                            <div class="form-group">
-                                <label> Email </label>
-                                <input class="form-control" name="email" value="{{ $email ?? '' }}" />
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" value="{{ $password ?? '' }}"/>
+                                <input type="date" name="dob" class="form-control" value="{{ $dob ?? '' }}" readonly/>
                             </div>
                             <div class="form-group">
                                 <label> Contact </label>
@@ -63,6 +46,27 @@
                             <div class="form-group">
                                 <label> Address </label>
                                 <input class="form-control" name="address" value="{{ $address ?? '' }}" />
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="account">
+                            <div class="form-group">
+                                <label> Email </label>
+                                <input class="form-control" name="email" value="{{ $email ?? '' }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" value="{{ $password ?? '' }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label> 
+                                <input type="password" name="password_confirmation" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label> Position-POS </label>
+                                <select name="position" class="form-control" disabled>
+                                    <option value="Employee" {{ isset($position) && $position == 'Employee' ? 'selected' : '' }}>Staff</option>
+                                    <option value="Manager" {{ isset($position) && $position == 'Manager' ? 'selected' : '' }}>Manager</option>
+                                </select>
                             </div>
                         </div>
                         <div class="tab-pane" id="extras">
@@ -83,15 +87,14 @@
                                 <label> Bank Account </label> 
                                 <input name="bank_account" class="form-control" value="{{ $bank_account ?? '' }}" />
                             </div>
-                    
-                            <div class="form-group">
-                                <label> Qualification </label>
-                                <input name="qualification" class="form-control" value="{{ $qualification ?? '' }}" />
-                            </div>
                             
                             <div class="form-group">
-                                <label> Career History </label>
-                                <textarea name="career" class="form-control" rows="6">{{ $career ?? '' }}</textarea>
+                                <label> Work History </label>
+                                <select name="workhistory" class="form-control" multiple size="10" readonly>
+                                    @foreach ($career as $whst)
+                                        <option>{{ $whst['position'] }}&emsp; From: {{ $whst['start_date'] }}&emsp; To: {{ $whst['end_date'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>  

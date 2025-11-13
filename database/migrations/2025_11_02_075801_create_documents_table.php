@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text("file");
             $table->string("file_name");
             $table->text("file_path");
-            $table->string("read", 1);
+            $table->string("verified", 1);
         });
     }
 

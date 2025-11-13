@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('scheme', function (Blueprint $table) {
             $table->id();
-            $table->string("employee_id", 8);
-            $table->string("email");
-            $table->string("password", 60);
-            $table->string("type", 100);
-            $table->unique("email");
+            $table->text("employee_id");
+            $table->text("scheme");
+            $table->float("base_amount");
+            $table->float("base_commission_rate");
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('scheme');
     }
 };

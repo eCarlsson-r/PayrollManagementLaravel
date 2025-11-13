@@ -111,8 +111,8 @@
                         </a>
                     </li>
 
-                    <li class="{{ (request()->path() == 'payment') ? "panel active" : "panel" }}"> 
-                        <a href="#">
+                    <li class="{{ (request()->path() == 'payment/create') ? "panel active" : "panel" }}"> 
+                        <a href="/payment/create">
                             <i class="icon-usd"></i> Proceed Payment
                         </a> 
                     </li>

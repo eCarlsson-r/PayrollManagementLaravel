@@ -15,13 +15,11 @@ return new class extends Migration
             $table->string("id", 8);
             $table->text("first_name");
             $table->text("last_name");
-            $table->string("position", 2);
+            $table->string("position", 100);
             $table->date("dob");
             $table->text("email");
             $table->string("contact", 20);
             $table->text("address");
-            $table->text("qualification");
-            $table->longtext("career");
             $table->text("pay_method");
             $table->text("bank");
             $table->string("bank_account", 50);

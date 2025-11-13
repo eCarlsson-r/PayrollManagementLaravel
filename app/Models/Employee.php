@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Account;
 use App\Models\Feedback;
-use App\Models\Request;
-use App\Models\History;
+use App\Models\Document;
+use App\Models\Payment;
+use App\Models\Scheme;
+use App\Models\Career;
 
 class Employee extends Model
 {
@@ -16,9 +18,8 @@ class Employee extends Model
     public $timestamps = false;
     protected $fillable = [
         'id', 'first_name', 'last_name', 'position', 'dob', 
-        'email', 'contact', 'address', 'qualification',
-        'career', 'pay_method', 'bank', 'bank_account', 'manager',
-        'scheme', 'hourly_rate', 'salary_amount', 'commission_rate'
+        'email', 'contact', 'address', 'manager', 
+        'pay_method', 'bank', 'bank_account'
     ];
     protected $guarded = ['id'];
 
@@ -26,16 +27,8 @@ class Employee extends Model
         return $this->belongsTo(Account::class);
     }
 
-    public function hourly() {
-        return $this->hasOne(Hourly::class);
-    }
-
-    public function salary() {
-        return $this->hasOne(Salary::class);
-    }
-
-    public function salesman() {
-        return $this->hasOne(Salesman::class);
+    public function scheme() {
+        return $this->belongsTo(Scheme::class);
     }
 
     public function feedbacks() {
@@ -43,10 +36,14 @@ class Employee extends Model
     }
 
     public function requests() {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(Document::class);
     }
 
     public function histories() {
-        return $this->hasMany(History::class);
+        return $this->hasMany(Payment::class);
+    }
+
+    public function career() {
+        return $this->hasMany(Career::class, 'employee_id');
     }
 }

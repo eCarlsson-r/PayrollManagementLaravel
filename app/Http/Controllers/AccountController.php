@@ -33,28 +33,19 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->input('position') == "SF") $type = "Employee";
-        else if ($request->input('position') == "MG") $type = "Manager";
-        $empID = Employee::where('position', $request->input('position'))->count();
-        $empID = $request->input('position').sprintf("%06d", $empID+1);
-        Account::create([
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'type' => $type,
-            'employee_id' => Employee::create([
-                'id' => $empID,
-                'first_name' => $request->input('first_name'), 'last_name' => $request->input('last_name'), 
-                'position'=>$request->input('position'), 'dob'=>'1980-01-01', 'email' => $request->input('email'),
-                'contact'=>'', 'address' => '', 'qualification' => '', 'manager' => '', 
-                'career' => '', 'pay_method' => 'cash', 'bank' => '', 'bank_account' => ''
-            ])->id
-        ]);
-
-        session(['employee_id' => $empID]);
-        session(['first_name' => $request->input('first_name')]);
-        session(['manager' => '']);
-        session(['position' => $type]);
-        return redirect()->intended('/employee/'.$empID.'/edit');
+        if (Employee::where(['email'=>$request->input('email')])->first()) {
+            $empID = Employee::where(['email'=>$request->input('email')])->first()->id;
+            Account::create([
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'type' => $request->input('position'),
+                'employee_id' => $empID
+            ]);
+            
+            if (auth()->attempt($request->only('email', 'password'))) return redirect()->intended('/employee/'.$empID.'/edit');
+        } else {
+            return back()->with(["error"=>true, "message"=>"Employee with this email does not exist."]);
+        }
     }
 
     /**

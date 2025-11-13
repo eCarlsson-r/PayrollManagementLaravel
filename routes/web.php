@@ -31,14 +31,14 @@ Route::post('/recruit', [EmployeeController::class, 'recruit']);
 Route::post('/expel', [EmployeeController::class, 'expel']);
 
 Route::get('/feedback', [FeedbackController::class, 'index']);
-Route::get('/read/{id}', [FeedbackController::class, 'update']);
 Route::get('/feedback/create', [FeedbackController::class, 'create']);
+Route::get('/read/{id}', [FeedbackController::class, 'update']);
 Route::post('/feedback', [FeedbackController::class, 'store']);
 
 Route::get('/document', [DocumentController::class, 'index']);
-Route::get('/document/{id}', [DocumentController::class, 'show']);
 Route::get('/document/create', [DocumentController::class, 'create']);
+Route::get('/document/{id}', [DocumentController::class, 'show']);
 Route::post('/document', [DocumentController::class, 'store']);
-Route::get('/respond/{id}', [DocumentController::class, 'update']);
+Route::put('/document/{id}', [DocumentController::class, 'update']);
 
 Route::get('/payment', [PaymentController::class, 'index']);
