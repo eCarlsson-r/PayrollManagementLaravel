@@ -33,7 +33,7 @@
                                             <td>{{ $Apymt->employee_id }}</td>
                                             <td>{{ $Apymt->date }}</td>
                                             <td>{{ $Apymt->amount }}</td>
-                                            <td>".$Apymt['PaymentMethod']."</td>
+                                            <td>{{ $Apymt->method }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -3,28 +3,16 @@
 @section('content')
     <form action="/password/reset" method="post" class="form-signin">
         @csrf
-        @if (session('error') && session('message'))
+        @if ($errors->any())
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                {{ session('message') }}
-            </div>
-        @endif
-        
-        @if (session('status'))
-            <div class="alert alert-info alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {{ session('status') }}
-            </div>
-        @elseif (session('error') && session('email'))
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                {{ session('email') }}
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
         <input type="hidden" name="token" value="{{ $token }}" />

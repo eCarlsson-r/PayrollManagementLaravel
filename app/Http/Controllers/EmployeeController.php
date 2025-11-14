@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
 use App\Models\Employee;
+use App\Models\Scheme;
+use App\Models\Career;
 
 class EmployeeController extends Controller
 {
@@ -82,15 +84,15 @@ class EmployeeController extends Controller
             'employee_id' => $employee->id
         ];
         
-        if ($request->input('scheme') == "HOURLY") {
-            $schemaData['hourly_rate'] = $request->input('hourly_rate');
-        } else if ($request->input('scheme') == "MONTHLY") {
+        if ($request->input('scheme') == "HOURLY" || $request->input('scheme') == "MONTHLY") {
             $schemaData['base_amount'] = $request->input('base_amount');
         } else if ($request->input('scheme') == "COMMISSION") {
             $schemaData['base_amount'] = $request->input('base_amount');
             $schemaData['base_commision_rate'] = $request->input('base_commision_rate');
         }
-        return redirect('employee')->with($employee);
+        Scheme::create($schemaData);
+        Career::create(['employee_id' => $employee->id, 'position' => $request->input('position'), 'start_date' => now()]);
+        return redirect('employee');
     }
     
     /**

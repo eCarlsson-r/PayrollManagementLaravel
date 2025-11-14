@@ -42,3 +42,4 @@ Route::post('/document', [DocumentController::class, 'store']);
 Route::put('/document/{id}', [DocumentController::class, 'update']);
 
 Route::get('/payment', [PaymentController::class, 'index']);
+Route::get('/payment/create', [PaymentController::class, 'create']);
