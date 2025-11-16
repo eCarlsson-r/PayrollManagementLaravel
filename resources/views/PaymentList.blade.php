@@ -17,7 +17,7 @@
                     <div class="panel-heading"> Payments Made to Me </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <table data-toggle="table" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 @if (auth()->user()->type=="Admin")
                                     <thead>
                                         <tr>
@@ -65,13 +65,4 @@
         </div> 
     </div> 
 </div>
-@endsection
-
-
-@section('script')
-<script>
-    $(document).ready(function () { 
-        $('#dataTables-example').dataTable();
-    });
-</script>
 @endsection

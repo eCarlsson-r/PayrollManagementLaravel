@@ -18,7 +18,7 @@
                             <form action="/employee/" method="post" role="form">
                                 @csrf
                                 @method("DELETE")
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <table data-toggle="table" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -58,12 +58,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('script')
-<script>
-    $(document).ready(function () { 
-        $('#dataTables-example').dataTable();
-    });
-</script>
 @endsection

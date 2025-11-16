@@ -1,8 +1,9 @@
-/*@import 'tailwindcss';*/
-@import url("//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css");
-@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css");
-@import url("//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/2.3.0-j5/jasny-bootstrap.min.css");
-@import url("//cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.1.9/css/fileinput.min.css");
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'font-awesome/css/font-awesome.min.css';
+@import 'jasny-bootstrap/dist/css/jasny-bootstrap.min.css';
+@import 'bootstrap-fileinput/css/fileinput.min.css';
+@import 'bootstrap-table/dist/bootstrap-table.min.css';
+@import 'x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

@@ -14,7 +14,7 @@
         <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
-        @vite(['resources/css/app.css', 'resources/css/MoneAdmin.css', 'resources/css/main.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/main.css', 'resources/js/app.js'])
     </head>
 
     <body class="padTop53" >
@@ -22,7 +22,7 @@
             <div id="top">
                 <nav class="navbar navbar-inverse navbar-fixed-top">
                     <a data-original-title="Show/Hide Menu" data-placement="bottom" data-tooltip="tooltip" class="accordion-toggle btn btn-primary btn-sm visible-xs" data-toggle="collapse" href="#menu" id="menu-toggle">
-                        <i class="icon-align-justify"></i>
+                        <i class="fa fa-align-justify"></i>
                     </a>
                     
                     <header class="navbar-header">
@@ -35,7 +35,7 @@
                         @if (auth()->user()->type=="Admin")
                             <li class="dropdown">
                                 <a href="/payment/create">
-                                    <i class="icon-usd"></i>
+                                    <i class="fa fa-usd"></i>
                                 </a>
                             </li>
                         @endif
@@ -44,9 +44,9 @@
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                     @if (count(auth()->user()->notifications) > 0)
-                                        <span class="label label-success">{{ count(auth()->user()->notifications) }}</span> <i class="icon-envelope-alt"></i>&nbsp; <i class="icon-chevron-down"></i>
+                                        <span class="label label-success">{{ count(auth()->user()->notifications) }}</span> <i class="fa fa-envelope"></i>&nbsp; <i class="fa fa-chevron-down"></i>
                                     @else
-                                        <span class="label label-success"></span> <i class="icon-envelope-alt"></i>&nbsp; <i class="icon-chevron-down"></i>
+                                        <span class="label label-success"></span> <i class="fa fa-envelope"></i>&nbsp; <i class="fa fa-chevron-down"></i>
                                     @endif
                                 </a>
                                 <ul class="dropdown-menu dropdown-messages">
@@ -66,7 +66,7 @@
                                     @endforeach
                                     <li>
                                         <a class="text-center" href="/document">
-                                            <strong>Read All Messages</strong> <i class="icon-angle-right"></i>
+                                            <strong>Read All Messages</strong> <i class="fa fa-angle-right"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -75,7 +75,7 @@
 
                         <li class="dropdown">
                             <a href="/logout">
-                                <i class="icon-signout"></i>
+                                <i class="fa fa-sign-out"></i>
                             </a>
                         </li>
                     </ul>
@@ -101,18 +101,18 @@
                 <ul id="menu" class="collapse">
                     <li class="{{ (request()->path() == 'employee/'.auth()->user()->employee->id.'/edit') ? "panel active" : "panel" }}">
                         <a href="/employee/{{ auth()->user()->employee->id }}/edit"> 
-                            <i class="icon-user"></i> Profile 
+                            <i class="fa fa-user"></i> Profile 
                         </a> 
                     </li>
                     <li class="{{ (request()->path() == 'colleague') ? "panel active" : "panel" }}">
                         <a href="/colleague">
-                            <i class="icon-sitemap"></i> Colleagues
+                            <i class="fa fa-sitemap"></i> Colleagues
                         </a>
                     </li>
                     @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
                     <li class="{{ (request()->path() == 'team') ? "panel active" : "panel" }}">
                         <a href="/team/">
-                            <i class="icon-group"></i> Manage Team
+                            <i class="fa fa-group"></i> Manage Team
                         </a>
                     </li>
                     @endif
@@ -120,19 +120,19 @@
                     @if (auth()->user()->type == "Employee" || auth()->user()->type=="Manager")
                     <li class="panel" class="panel">
                         <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#blank-nav">
-                            <i class="icon-pencil"></i> Requests
-                            <span class="pull-right"> <i class="icon-angle-right"></i> </span>&nbsp; 
+                            <i class="fa fa-pencil"></i> Requests
+                            <span class="pull-right"> <i class="fa fa-angle-right"></i> </span>&nbsp; 
                             <span class="label label-success"></span>&nbsp; 
                         </a>
                         <ul class="collapse" id="blank-nav">
                             <li>
                                 <a href="/document/create">
-                                    <i class="icon-upload"></i> Post File  
+                                    <i class="fa fa-upload"></i> Post File  
                                 </a>
                             </li>
                             <li>
                                 <a href="/feedback/create">
-                                    <i class="icon-edit"></i> Feedback  
+                                    <i class="fa fa-edit"></i> Feedback  
                                 </a>
                             </li>
                         </ul> 
@@ -142,13 +142,13 @@
                     @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
                         <li class="{{ (request()->path() == 'feedback') ? "panel active" : "panel" }}">
                             <a href="/feedback" >
-                                <i class="icon-comments-alt"></i> View Feedback
+                                <i class="fa fa-comments"></i> View Feedback
                             </a>
                         </li>
 
                         <li class="{{ (request()->path() == 'request') ? "panel active" : "panel" }}">
                             <a href="/document">
-                                <i class="icon-question-sign"></i> Pending Requests
+                                <i class="fa fa-upload"></i> Pending Requests
                             </a>
                         </li>
                     @endif
@@ -156,14 +156,14 @@
                     @if (auth()->user()->type=="Admin")
                     <li class="{{ (request()->path() == 'employee') ? "panel active" : "panel" }}">
                         <a href="/employee">
-                            <i class="icon-group"></i> Manage Employee
+                            <i class="fa fa-group"></i> Manage Employee
                         </a>
                     </li>
                     @endif
                     
                     <li class="{{ (request()->path() == 'payment') ? "panel active" : "panel" }}">
                         <a href="/payment">
-                            <i class="icon-list"></i> Payment History
+                            <i class="fa fa-list"></i> Payment History
                         </a>
                     </li>
                 </ul>
@@ -174,6 +174,8 @@
             <div id="footer">
                 <p>&copy; Enterprise Software Developer &nbsp;2015 &nbsp;</p>
             </div>
+
+            @yield('script')
         </div>
     </body>
 </html>

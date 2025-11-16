@@ -15,16 +15,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <hr />
-                    <nav class="navbar navbar-default">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#personal" data-toggle="tab">Personal</a></li>
-                            <li class="active"><a href="#account" data-toggle="tab">Account</a></li>
-                            <li><a href="#extras" data-toggle="tab">Extras</a></li>
-                            <li class="pull-right"></li>
-                        </ul>
-                    </nav>
+                <div id="rootwizard" class="col-lg-12">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                <ul>
+                                    <li><a href="#personal" data-toggle="tab">Personal</a></li>
+                                    <li class="active"><a href="#account" data-toggle="tab">Account</a></li>
+                                    <li><a href="#extras" data-toggle="tab">Extras</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane" id="personal">
                             <div class="form-group">

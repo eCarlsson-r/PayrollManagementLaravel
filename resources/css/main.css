@@ -1,21 +1,10 @@
-
-
-
-
 /*********************************************************/
-
-/*                Important For top hover dropwown                */
-
-
-      #top > .navbar .dropdown-menu > li > a:hover, #top > .navbar .dropdown-menu > li > a:focus {
-background-repeat: repeat-x;
-   background-image: linear-gradient(to bottom, #EEECEC  0%, #E2E2E2  100%) !important;
+/*         Important For top hover dropwown              */
+#top > .navbar .dropdown-menu > li > a:hover, #top > .navbar .dropdown-menu > li > a:focus {
+  background-repeat: repeat-x;
+  background-image: linear-gradient(to bottom, #EEECEC  0%, #E2E2E2  100%) !important;
 }
-
-
 /*********************************************************/
-
-
 
 #wrap {
   margin: 0 auto;
@@ -207,7 +196,7 @@ body.padTop53 {
 
 #top .navbar {
   margin-bottom: 0;
-   border:1px solid rgb(216, 215, 215);
+  border:1px solid rgb(216, 215, 215);
   background-color:#f8f8f8;
 }
 
@@ -223,7 +212,71 @@ body.padTop53 {
   #top .topnav {
     float: right;
   }
+
+  /* Navigation */
+
+  /* ------------------------------- */
+
+  /* Top Right Navigation Dropdown Styles */
+
+  .navbar-top-links li:last-child {
+      margin-right: 15px;
+  }
+
+  .navbar-top-links li a {
+      padding: 12px;
+      font-size: 18px;
+  }
+
+  .navbar-top-links .dropdown-menu li {
+      display: block;
+  }
+
+  .navbar-top-links .dropdown-menu li a {
+      display: block;
+      padding: 2px 5px 2px 5px;
+      font-size: 14px;
+  }
+
+  .navbar-top-links .dropdown-menu li:last-child {
+      margin-right: 0;
+  }
 }
+
+@media (max-width: 767px) {
+  #menu-toggle {
+    margin-top: 10px;
+  }
+
+  .navbar-header {
+    display: inline-block;
+  }
+
+  .navbar-top-links li a {
+      padding: 2px 5px 2px 5px;
+  }
+
+  .navbar-top-links {
+    display: inline-block;
+    float: right;
+    margin-top: 15px;
+  }
+
+  .navbar-top-links .dropdown.open .dropdown-messages {
+    right: 0;
+    left: auto;
+    float: right;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
 
 /* END TOP bar */
 /* BEGIN header.head bar */
@@ -300,8 +353,9 @@ body.padTop53 {
 }
 
 #menu-toggle {
-  float: right;
+  float: left;
   margin-left: 15px;
+  margin-left: 10px;
 }
 
 @media (min-width: 768px) {

@@ -29,7 +29,7 @@
 								</select>
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="submit">
-										<i class="icon-search"></i>
+										<i class="fa fa-search"></i>
 									</button>
 								</span>
 							</div>

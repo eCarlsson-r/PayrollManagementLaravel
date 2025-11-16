@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePaymentRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdatePaymentRequest;
+use App\Models\Employee;
 use App\Models\Payment;
 use App\Models\Document;
 use App\Models\Scheme;
+use App\Models\Receipt;
 use App\Models\Timecard;
 
 class PaymentController extends Controller
@@ -184,9 +186,17 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePaymentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $payments = $request->input('payments');
+        foreach($payments as $pymt) {
+            Payment::create([
+                'employee_id' => $pymt['employee_id'],
+                'date' => date('Y-m-d'),
+                'amount' => $pymt['amount'],
+                'method' => Employee::find($pymt['employee_id'])->pay_method
+            ]);
+        }
     }
 
     /**

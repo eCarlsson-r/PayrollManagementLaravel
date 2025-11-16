@@ -15,12 +15,12 @@
             <div class="col-lg-12">
                 <div class="box">
                     <header>
-                        <h5><i class="icon-th-large"></i> Manage your Team </h5>    
+                        <h5><i class="fa fa-th-large"></i> Manage your Team </h5>    
                         <div class="toolbar">
                             <ul class="nav pull-right">
                                 <li> 
                                     <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-3">
-                                        <i class="icon-chevron-up"></i> 
+                                        <i class="fa fa-chevron-up"></i> 
                                     </a> 
                                 </li>
                             </ul> 
@@ -35,7 +35,9 @@
                                         <div class="input-group">
                                             <input id="box1Filter" type="text" placeholder="Filter" class="form-control" />
                                             <span class="input-group-btn">
-                                                <button id="box1Clear" class="btn btn-warning" type="button">x</button> 
+                                                <button id="box1Clear" class="btn btn-warning" type="button">
+                                                    <i class="fa fa-times"></i> 
+                                                </button> 
                                             </span>
                                         </div> 
                                     </div>
@@ -50,16 +52,16 @@
                                 <div class="col-lg-2">
                                     <div class="btn-group btn-group-vertical" style="white-space: normal;">
                                         <button name="addTeam1" type="submit" class="btn btn-primary" formaction="/recruit"> 
-                                            <i class="icon-chevron-right"></i> 
+                                            <i class="fa fa-chevron-right"></i> 
                                         </button>
                                         <button name="addTeam2" type="submit" class="btn btn-primary" formaction="/recruit"> 
-                                            <i class="icon-forward"></i> 
+                                            <i class="fa fa-forward"></i> 
                                         </button>
                                         <button name="removeTeam2" type="submit" class="btn btn-danger" formaction="/expel"> 
-                                            <i class="icon-backward"></i> 
+                                            <i class="fa fa-backward"></i> 
                                         </button>
                                         <button name="removeTeam1" type="submit" class="btn btn-danger" formaction="/expel"> 
-                                            <i class="icon-chevron-left icon-white"></i> 
+                                            <i class="fa fa-chevron-left"></i> 
                                         </button>
                                     </div> 
                                 </div>
@@ -68,7 +70,9 @@
                                         <div class="input-group">
                                             <input id="box2Filter" type="text" placeholder="Filter" class="form-control" />
                                             <span class="input-group-btn"> 
-                                                <button id="box2Clear" class="btn btn-warning" type="button">x</button>
+                                                <button id="box2Clear" class="btn btn-warning" type="button">
+                                                    <i class="fa fa-times"></i> 
+                                                </button>
                                             </span>
                                         </div> 
                                     </div>

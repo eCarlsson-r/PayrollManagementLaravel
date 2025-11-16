@@ -8,7 +8,6 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/login.css',
                 'resources/css/magic.css',
-                'resources/css/MoneAdmin.css',
                 'resources/css/main.css',
                 'resources/js/app.js'
             ],
