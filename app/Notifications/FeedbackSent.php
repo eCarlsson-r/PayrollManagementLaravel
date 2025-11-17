@@ -7,18 +7,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-use App\Models\Employee;
-
-class DocumentUpload extends Notification
+class FeedbackSent extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->document = $data;
+        //
     }
 
     /**
@@ -36,11 +34,11 @@ class DocumentUpload extends Notification
      */
     public function toDatabase(object $notifiable): array
     {
-        $employee = Employee::find($this->document->employee_id);
+        $employee = Employee::find($this->feedback->employee_id);
         return [
-            'id' => $this->document->id,
+            'id' => $this->feedback->id,
             'employee_name' => $employee->first_name . ' ' . $employee->last_name,
-            'title' => (isset($this->document->title)) ? $this->document->title : $this->document->subject
+            'title' => $this->feedback->title
         ];
     }
 }

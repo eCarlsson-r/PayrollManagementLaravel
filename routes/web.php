@@ -31,6 +31,7 @@ Route::post('/recruit', [EmployeeController::class, 'recruit']);
 Route::post('/expel', [EmployeeController::class, 'expel']);
 
 Route::get('/feedback', [FeedbackController::class, 'index']);
+Route::get('/feedback/{id}', [FeedbackController::class, 'show']);
 Route::get('/feedback/create', [FeedbackController::class, 'create']);
 Route::get('/read/{id}', [FeedbackController::class, 'update']);
 Route::post('/feedback', [FeedbackController::class, 'store']);

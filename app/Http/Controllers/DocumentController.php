@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Vish4395\LaravelFileViewer\LaravelFileViewer;
-use App\Models\Account;
 use App\Models\Document;
 use App\Models\Timecard;
 use App\Models\Receipt;
@@ -46,7 +45,7 @@ class DocumentController extends Controller
                 'verified' => 'U'
             ]);
 
-            Account::where('employee_id', auth()->user()->employee->manager)->first()->notify(new DocumentUpload($document));
+            auth()->user()->employee->manager->account->notify(new DocumentUpload($document));
         }
         return back();
     }

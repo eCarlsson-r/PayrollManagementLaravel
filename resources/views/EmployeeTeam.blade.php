@@ -3,93 +3,98 @@
 @section('title', 'Team Management')
 
 @section('content')
-<div id="content">
-    <div class="inner" >
-        <div class="row">
-            <div class="col-lg-12">
-                <h2> Team Management </h2>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Team Management</h2>
         <hr />
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="box">
-                    <header>
-                        <h5><i class="fa fa-th-large"></i> Manage your Team </h5>    
-                        <div class="toolbar">
-                            <ul class="nav pull-right">
-                                <li> 
-                                    <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-3">
-                                        <i class="fa fa-chevron-up"></i> 
-                                    </a> 
-                                </li>
-                            </ul> 
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <form method="post">
+            @csrf
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group"> 
+                        <div class="input-group">
+                            <input id="box1Filter" type="text" placeholder="Filter" class="form-control" />
+                            <span class="input-group-btn">
+                                <button id="box1Clear" class="btn btn-warning" type="button">
+                                    <i class="fa fa-times"></i> 
+                                </button> 
+                            </span>
                         </div> 
-                    </header>
-                    <div id="div-3" class="accordion-body collapse in body">
-                        <form method="post">
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <div class="form-group"> 
-                                        <div class="input-group">
-                                            <input id="box1Filter" type="text" placeholder="Filter" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button id="box1Clear" class="btn btn-warning" type="button">
-                                                    <i class="fa fa-times"></i> 
-                                                </button> 
-                                            </span>
-                                        </div> 
-                                    </div>
-                                    <div class="form-group">
-                                        <select id="box1View" name="new_employee[]" multiple="multiple" class="form-control" size="16">
-                                            @foreach ($new_members as $member)
-                                                <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }}</option>
-                                            @endforeach
-                                        </select> 
-                                    </div> 
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="btn-group btn-group-vertical" style="white-space: normal;">
-                                        <button name="addTeam1" type="submit" class="btn btn-primary" formaction="/recruit"> 
-                                            <i class="fa fa-chevron-right"></i> 
-                                        </button>
-                                        <button name="addTeam2" type="submit" class="btn btn-primary" formaction="/recruit"> 
-                                            <i class="fa fa-forward"></i> 
-                                        </button>
-                                        <button name="removeTeam2" type="submit" class="btn btn-danger" formaction="/expel"> 
-                                            <i class="fa fa-backward"></i> 
-                                        </button>
-                                        <button name="removeTeam1" type="submit" class="btn btn-danger" formaction="/expel"> 
-                                            <i class="fa fa-chevron-left"></i> 
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input id="box2Filter" type="text" placeholder="Filter" class="form-control" />
-                                            <span class="input-group-btn"> 
-                                                <button id="box2Clear" class="btn btn-warning" type="button">
-                                                    <i class="fa fa-times"></i> 
-                                                </button>
-                                            </span>
-                                        </div> 
-                                    </div>
-                                    <div class="form-group">
-                                        <select id="box2View" name="team_member[]" multiple="multiple" class="form-control" size="16">
-                                            @foreach ($team_members as $member)
-                                                <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> 
-                            </div> 
-                        </form>
+                    </div>
+                    <div class="form-group">
+                        <select id="box1View" name="new_employee[]" multiple="multiple" class="form-control" size="16">
+                            @foreach ($new_members as $member)
+                                <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }}</option>
+                            @endforeach
+                        </select> 
                     </div> 
+                </div>
+                <div class="col-lg-2 text-center">
+                    @mobile
+                    <div class="form-group btn-group btn-group-justified">
+                        <div class="btn-group" role="group">
+                            <button name="addTeam1" type="submit" class="btn btn-primary" formaction="/recruit"> 
+                                <i class="fa fa-chevron-down"></i> 
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button name="addTeam2" type="submit" class="btn btn-primary" formaction="/recruit"> 
+                                <i class="fa fa-forward"></i> 
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button name="removeTeam2" type="submit" class="btn btn-danger" formaction="/expel"> 
+                                <i class="fa fa-backward"></i> 
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button name="removeTeam1" type="submit" class="btn btn-danger" formaction="/expel"> 
+                                <i class="fa fa-chevron-up"></i> 
+                            </button>
+                        </div>
+                    </div> 
+                    @elsemobile
+                    <div class="btn-group btn-group-vertical">
+                        <button name="addTeam1" type="submit" class="btn btn-lg btn-primary" formaction="/recruit"> 
+                            <i class="fa fa-chevron-right"></i> 
+                        </button>
+                        <button name="addTeam2" type="submit" class="btn btn-lg btn-primary" formaction="/recruit"> 
+                            <i class="fa fa-forward"></i> 
+                        </button>
+                        <button name="removeTeam2" type="submit" class="btn btn-lg btn-danger" formaction="/expel"> 
+                            <i class="fa fa-backward"></i> 
+                        </button>
+                        <button name="removeTeam1" type="submit" class="btn btn-lg btn-danger" formaction="/expel"> 
+                            <i class="fa fa-chevron-left"></i> 
+                        </button>
+                    </div> 
+                    @endmobile
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input id="box2Filter" type="text" placeholder="Filter" class="form-control" />
+                            <span class="input-group-btn"> 
+                                <button id="box2Clear" class="btn btn-warning" type="button">
+                                    <i class="fa fa-times"></i> 
+                                </button>
+                            </span>
+                        </div> 
+                    </div>
+                    <div class="form-group">
+                        <select id="box2View" name="team_member[]" multiple="multiple" class="form-control" size="16">
+                            @foreach ($team_members as $member)
+                                <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div> 
             </div> 
-        </div> 
-    </div>
+        </form>
+    </div> 
 </div> 
 @endsection

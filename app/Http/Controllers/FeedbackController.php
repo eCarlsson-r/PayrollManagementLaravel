@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feedback;
-use App\Models\Account;
-use App\Notifications\DocumentUpload;
+use App\Notifications\FeedbackSent;
 
 class FeedbackController extends Controller
 {
@@ -44,7 +43,7 @@ class FeedbackController extends Controller
             )
         );
 
-        Account::where('employee_id', auth()->user()->employee->manager)->first()->notify(new DocumentUpload($feedback));
+        auth()->user()->employee->manager->account->notify(new FeedbackSent($feedback));
 
         return back();
     }
@@ -52,7 +51,7 @@ class FeedbackController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Feedback $feedback)
+    public function show($id)
     {
         //
     }

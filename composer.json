@@ -13,6 +13,8 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "laravel/ui": "^4.6",
+        "mobiledetect/mobiledetectlib": "*",
+        "riverskies/laravel-mobile-detect": "^1.3",
         "vish4395/laravel-file-viewer": "^1.0"
     },
     "require-dev": {
