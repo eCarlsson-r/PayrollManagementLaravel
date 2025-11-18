@@ -1,6 +1,7 @@
 @extends('guest')
 
 @section('content')
+<div class="form-group">
     <form action="/password/reset" method="post" class="form-signin">
         @csrf
         @if ($errors->any())
@@ -16,12 +17,28 @@
             </div>
         @endif
         <input type="hidden" name="token" value="{{ $token }}" />
-        <p class="text-muted text-center btn-block btn btn-primary btn-rect">
-            Enter your new password and confirm
-        </p>
-        <input type="email" name="email" placeholder="Username" class="form-control" value={{ $email }} />
-        <input type="password" name="password" placeholder="Password" class="form-control" />
-        <input type="password" name="password_confirmation" placeholder="Password" class="form-control" />
-        <input name="login" class="btn text-muted text-center btn-danger" type="submit" value="Sign in">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Enter your new password and confirm
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="email">E-mail address</label>
+                    <input type="email" name="email" class="form-control" value={{ $email }} />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" name="password_confirmation" class="form-control" />
+                </div>
+                <div class="form-group text-center">
+                    <input name="login" class="btn btn-primary" type="submit" value="Reset Password">
+                </div>
+            </div>
+        </div>
     </form>
+</div>
 @endsection

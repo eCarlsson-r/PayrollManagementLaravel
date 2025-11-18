@@ -58,18 +58,13 @@ class EmployeeController extends Controller
         if ($request->input('position') == 'Employee') $id = sprintf("SF%06d", $empID+1);
         else if ($request->input('position') == 'Manager') $id = sprintf("MG%06d", $empID+1);
         $empData = array(
-            'id' => $id,
-            'bank' => '',
-            'bank_account' => '',
-            'manager' => ''
+            'id' => $id
         );
         $empData = array_merge(
             $empData, $request->only(
                 [
                     'first_name', 'last_name', 'position', 'dob', 
-                    'email', 'contact', 'address', 'qualification', 
-                    'career', 'pay_method', 'scheme', 
-                    'hourly_rate', 'salary_amount', 'commission_rate'
+                    'email', 'contact', 'address', 'pay_method'
                 ]
             )
         );
@@ -113,7 +108,7 @@ class EmployeeController extends Controller
                 $request->only(
                     [
                         'id', 'first_name', 'last_name', 'position', 'dob', 
-                        'email', 'contact', 'address', 'qualification', 'career', 
+                        'email', 'contact', 'address', 
                         'pay_method', 'bank', 'bank_account'
                     ]
                 ),

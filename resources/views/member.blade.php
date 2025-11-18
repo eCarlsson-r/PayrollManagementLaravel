@@ -67,11 +67,11 @@
                 </button>
                 @mobile
                 <a href="/employee/{{ auth()->user()->employee->id }}/edit" class="navbar-brand" style="padding-top: 8px;">
-                    <img src="{{URL::asset('/logo.png')}}" width="" height="40" alt="" />
+                    <img src="{{URL::asset('/banner.png')}}" width="" height="40" alt="" />
                 </a>
                 @elsemobile
                 <a href="/employee/{{ auth()->user()->employee->id }}/edit" class="navbar-brand" style="padding-top: 5px;">
-                    <img src="{{URL::asset('/logo.png')}}" width="" height="40" alt="" />
+                    <img src="{{URL::asset('/banner.png')}}" width="" height="40" alt="" />
                 </a>
                 @endmobile
             </div>

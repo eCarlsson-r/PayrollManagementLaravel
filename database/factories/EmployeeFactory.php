@@ -17,7 +17,12 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'first_name' => fake()->firstName(), 
+            'last_name' => fake()->lastName(), 
+            'dob' => fake()->date(),
+            'contact' => fake()->phoneNumber(), 
+            'address' => fake()->address(), 
+            'pay_method' => 'cash'
         ];
     }
 }

@@ -11,37 +11,71 @@ Route::get('/', function () {
     if (auth()->guest()) return view('Login', request()->all());
     else return redirect()->intended('/employee/'.auth()->user()->employee->id.'/edit');
 });
-Route::post('/login', [AccountController::class, 'show']);
-Route::post('/forgot', [AccountController::class, 'update']);
-Route::get('password/reset/{token}', [AccountController::class, 'create'])->name('password.reset');
-Route::post('password/reset', [AccountController::class, 'edit']);
-Route::post('/register', [AccountController::class, 'store']);
-Route::get('/logout', [AccountController::class, 'destroy']);
 
-Route::get('/employee', [EmployeeController::class, 'index']);
-Route::get('/employee/create', [EmployeeController::class, 'create']);
-Route::get('/employee/{id}/edit', [EmployeeController::class, 'edit']);
-Route::post('/employee', [EmployeeController::class, 'store']);
-Route::put('/employee/{id}', [EmployeeController::class, 'update']);
-Route::delete('/employee', [EmployeeController::class, 'destroy']);
-Route::get('/colleague', [EmployeeController::class, 'show']);
-Route::post('/colleague', [EmployeeController::class, 'show']);
-Route::get('/team', [EmployeeController::class, 'team']);
-Route::post('/recruit', [EmployeeController::class, 'recruit']);
-Route::post('/expel', [EmployeeController::class, 'expel']);
+Route::middleware('guest')->group(function() {
+    Route::controller(AccountController::class)->group(function() {
+        Route::post('/login', 'show');
+        Route::post('/forgot', 'update');
+        Route::get('password/reset/{token}', 'create')->name('password.reset');
+        Route::post('password/reset', 'edit');
+        Route::post('/register', 'store');
+    });
+});
 
-Route::get('/feedback', [FeedbackController::class, 'index']);
-Route::get('/feedback/create', [FeedbackController::class, 'create']);
-Route::get('/feedback/{id}', [FeedbackController::class, 'show']);
-Route::get('/read/{id}', [FeedbackController::class, 'update']);
-Route::post('/feedback', [FeedbackController::class, 'store']);
+Route::middleware('auth')->group(function() {
+    Route::get('/logout', [AccountController::class, 'destroy']);
+    Route::get('/payment', [PaymentController::class, 'index']);
 
-Route::get('/document', [DocumentController::class, 'index']);
-Route::get('/document/create', [DocumentController::class, 'create']);
-Route::get('/document/{id}', [DocumentController::class, 'show']);
-Route::post('/document', [DocumentController::class, 'store']);
-Route::put('/document/{id}', [DocumentController::class, 'update']);
+    Route::controller(EmployeeController::class)->group(function() {
+        Route::get('/employee/{id}/edit', 'edit');
+        Route::put('/employee/{id}', 'update');
+        Route::get('/colleague', 'show');
+        Route::post('/colleague', 'show');
+    });
+});
 
-Route::get('/payment', [PaymentController::class, 'index']);
-Route::get('/payment/create', [PaymentController::class, 'create']);
-Route::post('/payment', [PaymentController::class, 'store']);
+Route::middleware(['auth', 'type:Employee,Manager'])->group(function() {
+    Route::controller(FeedbackController::class)->group(function() {
+        Route::get('/feedback/create', 'create');
+        Route::post('/feedback', 'store');
+    });
+
+    Route::controller(DocumentController::class)->group(function() {
+        Route::get('/document/create', 'create');
+        Route::post('/document', 'store');
+    });
+});
+
+Route::middleware(['auth', 'type:Admin,Manager'])->group(function() {
+    Route::controller(EmployeeController::class)->group(function() {
+        Route::get('/team', [EmployeeController::class, 'team']);
+        Route::post('/recruit', [EmployeeController::class, 'recruit']);
+        Route::post('/expel', [EmployeeController::class, 'expel']);
+    });
+
+    Route::controller(FeedbackController::class)->group(function() {
+        Route::get('/feedback', 'index');
+        Route::get('/feedback/{id}', 'show');
+        Route::get('/read/{id}', 'update');
+    });
+
+    Route::controller(DocumentController::class)->group(function() {
+        Route::get('/document', 'index');
+        Route::get('/document/{id}', 'show');
+        Route::put('/document/{id}', 'update');
+    });
+});
+
+Route::middleware(['auth', 'type:Admin'])->group(function() {
+    Route::controller(EmployeeController::class)->group(function() {
+        Route::get('/employee', 'index');
+        Route::get('/employee/create', 'create');
+        Route::post('/employee', 'store');
+        Route::delete('/employee', 'destroy');
+    });
+
+    Route::controller(PaymentController::class)->group(function() {
+        Route::get('/payment/create', 'create');
+        Route::post('/payment', 'store');
+    });
+});

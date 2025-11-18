@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Account;
 use App\Models\Feedback;
@@ -12,6 +13,9 @@ use App\Models\Career;
 
 class Employee extends Model
 {
+    /** @use HasFactory<\Database\Factories\EmployeeFactory> */
+    use HasFactory;
+
     protected $table = 'employees';
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -23,12 +27,18 @@ class Employee extends Model
     ];
     protected $guarded = ['id'];
 
+    protected $attributes = [
+        'bank' => '',
+        'bank_account' => '',
+        'manager' => ''
+    ];
+
     public function account() {
-        return $this->belongsTo(Account::class);
+        return $this->hasOne(Account::class);
     }
 
     public function scheme() {
-        return $this->belongsTo(Scheme::class);
+        return $this->hasOne(Scheme::class);
     }
 
     public function feedbacks() {

@@ -3,7 +3,6 @@
 @import 'jasny-bootstrap/dist/css/jasny-bootstrap.min.css';
 @import 'bootstrap-fileinput/css/fileinput.min.css';
 @import 'bootstrap-table/dist/bootstrap-table.min.css';
-@import 'x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -18,4 +17,8 @@
 .container-fluid {
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+#install-button img {
+    width: 100%;
 }

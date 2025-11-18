@@ -1,6 +1,12 @@
 @extends('guest')
 
 @section('content')
+<div class="form-group">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#login" data-toggle="tab">Login</a></li>
+        <li role="presentation"><a href="#forgot" data-toggle="tab">Forgot Password</a></li>
+        <li role="presentation"><a href="#register" data-toggle="tab">Signup</a></li>
+    </ul>
     <div class="tab-content">
         <div id="login" class="tab-pane active">
             <form action="/login" method="post" class="form-signin">
@@ -29,42 +35,61 @@
                         {{ session('email') }}
                     </div>
                 @endif
-                <p class="text-muted text-center btn-block btn btn-primary btn-rect">
-                    Enter your username and password
-                </p>
-                <input type="email" id="email" name="email" placeholder="Username" class="form-control" />
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
-                <input name="login" class="btn text-muted text-center btn-danger" type="submit" value="Sign in">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="login-email">E-mail address</label>
+                            <input type="email" id="login-email" name="email" placeholder="Username" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
+                        </div>
+                        <div class="form-group text-center">
+                            <input name="login" class="btn btn-primary" type="submit" value="Sign in">
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
         <div id="forgot" class="tab-pane">
             <form action="/forgot" method="post" class="form-signin">
                 @csrf
-                <p class="text-muted text-center btn-block btn btn-primary btn-rect">Enter your valid e-mail</p>
-                <input type="email" name="email" required="required" placeholder="Your E-mail"  class="form-control" />
-                <br />
-                <button class="btn text-muted text-center btn-success" type="submit">Recover Password</button>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="forgot-email">E-mail address</label>
+                            <input type="email" id="forgot-email" name="email" required="required" class="form-control" />
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" type="submit">Recover Password</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
         <div id="register" class="tab-pane">
             <form action="/register" method="post" class="form-signin">
                 @csrf
-                <p class="text-muted text-center btn-block btn btn-primary btn-rect">
-                    Enter details to signup
-                </p>
-                <input type="email" name="email" placeholder="Username" class="form-control" />
-                <input type="password" name="password" placeholder="Password" class="form-control" />
-                <button type="submit" name="register" class="btn text-center btn-success">Sign Up</button>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="register-email">E-mail address</label>
+                            <input type="email" name="email" id="register-email" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" name="password" id="register-password" class="form-control" />
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" name="register" class="btn btn-primary">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
-    <div class="text-center">
-        <ul class="list-inline">
-            <li><a class="text-muted" show="#login" data-toggle="tab">Login</a></li>
-            <li><a class="text-muted" show="#forgot" data-toggle="tab">Forgot Password</a></li>
-            <li><a class="text-muted" show="#register" data-toggle="tab">Signup</a></li>
-        </ul>
-    </div>
+</div>
 @endsection
 
 @section('script')
