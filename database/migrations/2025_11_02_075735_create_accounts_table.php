@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string("password", 60);
             $table->string("type", 100);
             $table->unique("email");
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

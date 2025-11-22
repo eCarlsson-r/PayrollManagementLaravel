@@ -25,7 +25,7 @@
 		</div>
 		<div id="collapse{{ $loop->index }}" class="panel-collapse collapse in">
 			<div class="panel-body">
-				<img src="{{ $document->file_path }}" height="300" />
+				<img src="{{ $document->file }}" height="300" />
 			</div>
 		</div>
 

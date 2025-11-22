@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Account;
 use App\Models\Employee;
@@ -12,7 +12,7 @@ use App\Models\Document;
 use App\Models\Timecard;
 use App\Models\Receipt;
 
-class PaymentControllerTest extends TestCase
+class PaymentTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -20,7 +20,7 @@ class PaymentControllerTest extends TestCase
     {
         // create an employee and payment
         $emp = Employee::create(['id' => 'SF500001', 'first_name' => 'Pay', 'last_name' => 'ee', 'position' => 'Employee', 'dob' => '1990-01-01', 'email' => 'payee@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
-        Payment::create(['employee_id' => $emp->id, 'date' => '2025-11-20', 'amount' => 123.45, 'method' => 'cash']);
+        Payment::create(['employee_id' => $emp->id, 'date' => '2025-11-20', 'amount' => 123000000, 'method' => 'cash']);
 
         // admin account
         $adminEmp = Employee::create(['id' => 'AD500001', 'first_name' => 'Admin', 'last_name' => 'One', 'position' => 'Admin', 'dob' => '1980-01-01', 'email' => 'admin@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
@@ -31,7 +31,7 @@ class PaymentControllerTest extends TestCase
         $response = $this->get('/payment');
 
         $response->assertStatus(200);
-        $response->assertSee('123.45');
+        $response->assertSee('123000000');
         $response->assertSee($emp->id);
     }
 
@@ -70,14 +70,14 @@ class PaymentControllerTest extends TestCase
 
         $payload = [
             'payments' => [
-                ['employee_id' => $employee->id, 'amount' => 55.5]
+                ['employee_id' => $employee->id, 'amount' => 5600000]
             ]
         ];
 
         $response = $this->post('/payment', $payload);
 
         $response->assertStatus(200);
-        $this->assertDatabaseHas('payments', ['employee_id' => $employee->id, 'amount' => 55.5, 'method' => 'bank']);
+        $this->assertDatabaseHas('payments', ['employee_id' => $employee->id, 'amount' => 5600000, 'method' => 'bank']);
     }
 
     public function test_create_includes_commission_scheme_non_month_end()

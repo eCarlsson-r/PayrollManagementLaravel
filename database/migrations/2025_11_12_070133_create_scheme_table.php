@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('scheme', function (Blueprint $table) {
             $table->id();
-            $table->text("employee_id");
+            $table->string("employee_id", 8);
             $table->text("scheme");
             $table->float("base_amount");
             $table->float("base_commission_rate");
+            
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

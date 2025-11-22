@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Notifications;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Employee;
 use App\Models\Document;

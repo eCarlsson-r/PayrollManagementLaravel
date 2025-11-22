@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Services\PaymentCalculator;
 use App\Models\Employee;

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Middleware;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Middleware\CheckAccountType;
 use App\Models\Account;

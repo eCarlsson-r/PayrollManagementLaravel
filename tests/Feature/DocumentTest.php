@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
@@ -63,10 +63,11 @@ class DocumentTest extends TestCase
         // Create manager and account and act as manager
         $manager = Employee::create(['id' => 'MG000002', 'first_name' => 'Mana2', 'last_name' => 'Ger2', 'position' => 'Manager', 'dob' => '1980-01-02', 'email' => 'manager2_emp@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'manager2@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
+        $employee = Employee::create(['id' => 'SF000002', 'first_name' => 'Em', 'last_name' => 'Ployee2', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         // Create a document with subject Time Card
         $document = Document::create([
-            'employee_id' => 'SF000002',
+            'employee_id' => $employee->id,
             'manager' => $manager->id,
             'subject' => 'Time Card',
             'file_name' => 'tc.pdf',
@@ -174,9 +175,10 @@ class DocumentTest extends TestCase
     {
         $manager = Employee::create(['id' => 'MG000030', 'first_name' => 'ReceiptMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'receiptmgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'receiptmgracct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
+        $employee = Employee::create(['id' => 'SF000030', 'first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         $document = Document::create([
-            'employee_id' => 'SF000030',
+            'employee_id' => $employee->id,
             'manager' => $manager->id,
             'subject' => 'Sales Receipt',
             'file_name' => 'rcpt.pdf',

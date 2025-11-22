@@ -36,7 +36,7 @@ services:
             - "host.docker.internal:host-gateway"
         ports:
             - "${REVERB_PORT:-8080}:8080"
-        command: "php artisan reverb:start&php artisan queue:work"
+        command: "php artisan reverb:start && php artisan queue:work"
         environment:
             WWWUSER: "${WWWUSER}"
             LARAVEL_SAIL: 1

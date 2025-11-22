@@ -17,6 +17,8 @@ return new class extends Migration
             $table->date("date");
             $table->integer("amount");
             $table->text("method");
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

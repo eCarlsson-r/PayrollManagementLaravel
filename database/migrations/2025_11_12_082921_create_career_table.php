@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('careers', function (Blueprint $table) {
             $table->id();
-            $table->text("employee_id");
+            $table->string("employee_id", 8);
             $table->string("position", 100);
             $table->date("start_date");
             $table->date("end_date");
             $table->text("description");
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

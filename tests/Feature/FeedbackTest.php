@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use App\Models\Employee;
@@ -82,10 +82,11 @@ class FeedbackTest extends TestCase
             'pay_method' => 'cash'
         ]);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'mgr2acct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
+        $employee = Employee::create(['id' => 'SF200000', 'first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         // create feedback
         $fb = Feedback::create([
-            'employee_id' => 'SF200000',
+            'employee_id' => $employee->id,
             'manager' => $manager->id,
             'time' => '09:00:00',
             'date' => '2025-11-20',

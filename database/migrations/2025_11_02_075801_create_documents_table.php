@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string("file_name");
             $table->text("file_path");
             $table->string("verified", 1);
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

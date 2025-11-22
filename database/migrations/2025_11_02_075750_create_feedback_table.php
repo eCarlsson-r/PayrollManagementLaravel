@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->text("employee_id");
+            $table->string("employee_id", 8);
             $table->text("manager");
             $table->time("time");
             $table->date("date");
             $table->text("title");
             $table->longText("feedback");
             $table->string("read", 1);
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

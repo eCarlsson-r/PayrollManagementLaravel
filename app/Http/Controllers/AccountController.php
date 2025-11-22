@@ -45,11 +45,12 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         if (Employee::where(['email'=>$request->input('email')])->first()) {
-            $empID = Employee::where(['email'=>$request->input('email')])->first()->id;
+            $employee = Employee::where(['email'=>$request->input('email')])->first();
+            $empID = $employee->id;
             Account::create([
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),
-                'type' => $request->input('position'),
+                'type' => $employee->position,
                 'employee_id' => $empID
             ]);
             
