@@ -13,14 +13,14 @@
     <div class="col-lg-12">
         <form role="form" method="POST" action="/payment">
             @csrf
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="card card-default">
+                <div class="card-header">
                     Payments to be made
                     <button type="submit" class="btn btn-primary btn-sm pull-right">
                         Proceed Payment
                     </button>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="table-responsive">
                         <table data-toggle="table" class="table table-striped table-bordered table-hover" name="payments">
                             <thead>

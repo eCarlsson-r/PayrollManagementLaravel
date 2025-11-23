@@ -9,11 +9,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4 col-lg-push-4">
-                    <div class="form-group text-center">
-                        <img class="img-responsive" src="{{asset('banner.png')}}" id="logoimg" alt=" Logo" />
+        <div class="content container-fluid">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <img class="img-fluid" src="{{asset('banner.png')}}" id="logoimg" alt=" Logo" />
                     </div>
                     @yield('content')
                 </div>

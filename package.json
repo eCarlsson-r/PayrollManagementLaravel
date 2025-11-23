@@ -18,8 +18,8 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
-        "bootstrap": "^3.2.0",
-        "bootstrap-fileinput": "^4.2.8",
+        "bootstrap": "^5.3.8",
+        "bootstrap-fileinput": "^5.5.4",
         "bootstrap-table": "^1.25.0",
         "font-awesome": "^4.0.3",
         "jasny-bootstrap": "^3.1.3",

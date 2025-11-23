@@ -13,7 +13,7 @@
     <div class="col-lg-12">
         <form action="/document" method="post" enctype="multipart/form-data">
             @csrf
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-xs-3">
                     <label>Subject of Upload </label>
                 </div>
@@ -24,12 +24,12 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-xs-3">
                     <label>Upload File</label>
                 </div>
                 <div class="col-xs-9">
-                    <input type="file" name="file" class="file" accept="image/png, image/jpeg" />
+                    <input type="file" name="file" class="file" data-show-remove="false" data-show-upload="false" accept="image/png, image/jpeg" />
                 </div>
             </div>
             <div class="row">

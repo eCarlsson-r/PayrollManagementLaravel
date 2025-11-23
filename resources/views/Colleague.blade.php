@@ -11,9 +11,9 @@
 <hr />
 <div class="row">
 	<div class="col-lg-12">
-		<div class="form-group row">
-			<form action="/colleague" method="post">
-				@csrf
+		<form action="/colleague" method="post">
+			@csrf
+			<div class="mb-3 row">
 				<div class="col-xs-5 col-md-3">
 					<label>Select an employee to view</label>
 				</div>
@@ -26,39 +26,39 @@
 							@endforeach
 						</select>
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">
+							<button class="btn btn-primary" type="submit">
 								<i class="fa fa-search"></i>
 							</button>
 						</span>
 					</div>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 
 		@if ($viewColleague == "true")
 		<div class="panel panel-default" >
 			<div class="panel-heading"> Selected Employee Profile </div>
 			<div class="panel-body">
-				<div class="form-group">
+				<div class="mb-3">
 					<label> First Name </label>
 					<input disabled class="form-control" value="{{ $colleague->first_name }}"/>
 				</div>
-				<div class="form-group">
+				<div class="mb-3">
 					<label> Last Name </label>
 					<input disabled class="form-control" value="{{ $colleague->last_name }}"/>
 				</div>
-				<div class="form-group">
+				<div class="mb-3">
 					<label> Position-POS </label> 
 					<select disabled class="form-control">
 						<option value="SF" {{ $colleague->position == 'SF' ? 'selected' : '' }}>Staff</option>
 						<option value="MG" {{ $colleague->position == 'MG' ? 'selected' : '' }}>Manager</option>
 					</select>
 				</div>
-				<div class="form-group"> 
+				<div class="mb-3"> 
 					<label> Date of Birth </label>
 					<input disabled class="form-control" value="{{ $colleague->dob }}"/>
 				</div>
-				<div class="form-group">
+				<div class="mb-3">
 					<label> Email </label>
 					<input disabled class="form-control" value="{{ $colleague->email }}"/>
 				</div> 

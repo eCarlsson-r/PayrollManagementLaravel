@@ -1,5 +1,7 @@
-Need to manage the payroll for a company with employees and managers? 
-This is the right solution for you where you (as the admin) and your subordinates can do the following :
+# Payroll Management System
+The right solution in managing the payroll for a company with employees and managers.
+
+## User Stories
 - Employees/managers/admin log in to and log out from the system
 - Employees/managers/admin view their profile
 - Employees/managers/admin modify their own profile details
@@ -18,7 +20,6 @@ This is the right solution for you where you (as the admin) and your subordinate
 - Admin removes an employee / manager record
 
 ## What's New?
-
 - Revamped login and forget password method using Laravel built-in methods.
 - Organizing database using Laravel's Eloquent class built-in methods.
 - Reorganized the pages view using Laravel's Blade template engine.
@@ -27,9 +28,18 @@ This is the right solution for you where you (as the admin) and your subordinate
 - Simplify register function to only input registered (new employee) email and desired password.
 - Simplify file upload to single file at a time.
 - Forget password now send link for employee to reset their password, rather than sending the forgotten password as in the original project.
-- Implemented Progressive Web Application features into the project.
-- Implemented realtime and push notifications other than database notifications.
+- Implemented push notifications besides database notifications.
 - Contained the project into Docker container.
+
+## How to Run this repository?
+- Clone to your IDE.
+- Install Docker, then run Laravel Sail command **./vendor/bin/sail up --build --d**
+- Run in your browser at localhost. Congratulations! You have entered the application, then login with
+```
+Email : admin@oayroll.com
+Password : 112233
+```
+- After login, feel free to try create manager and employee accounts. Tutorial will be available at Wiki section.
 
 ## References
 - Agile Principles, Patterns, and Practices in C# (Payroll Case Study)

@@ -10,14 +10,14 @@
         <div class="col-lg-12">
             <h2 class="pull-left"> Employee Management </h2>
             <h2 class="pull-right">
-                <button type="submit" class="btn btn-default" name="delete">Delete Employee</button>
-                <button type="reset" class="btn btn-default" name="clear">Reset Selection</button>
+                <button type="submit" class="btn btn-secondary" name="delete">Delete Employee</button>
+                <button type="reset" class="btn btn-secondary" name="clear">Reset Selection</button>
                 <a href="/employee/create" class="btn btn-primary">Add New Employee</a>
             </h2>
         </div>
     </div>
     <hr />
-    <div class="form-group table-responsive">
+    <div class="mb-3 table-responsive">
         <table data-toggle="table" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>

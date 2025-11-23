@@ -11,9 +11,9 @@
 <hr />
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"> Payments Made to Me </div>
-            <div class="panel-body">
+        <div class="card card-default">
+            <div class="card-header"> Payments Made to Me </div>
+            <div class="card-body">
                 <div class="table-responsive">
                     <table data-toggle="table" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         @if (auth()->user()->type=="Admin")

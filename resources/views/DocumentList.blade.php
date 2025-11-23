@@ -12,19 +12,17 @@
 <p>Here are document uploads you need to respond.</p>
 
 @foreach ($documents as $document)
-	<div class="panel panel-default">
-		<div class="panel-heading clearfix"> 
-			<h4 class="btn panel-title pull-left">
-				<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $loop->index }}">
-					{{ $document->subject }} {{ $document->employee->first_name }} {{ $document->employee->last_name }}
-				</a>
+	<div class="card mb-3">
+		<div class="card-header clearfix"> 
+			<h4 class="btn card-title pull-left" data-bs-toggle="collapse" data-parent="#accordion" data-bs-target="#collapse{{ $loop->index }}">
+				{{ $document->subject }} {{ $document->employee->first_name }} {{ $document->employee->last_name }}
 			</h4>
-			<h4 class="panel-title pull-right">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#uiModal{{ $loop->index }}"> Respond Upload </button>
+			<h4 class="card-title pull-right">
+				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uiModal{{ $loop->index }}"> Respond Upload </button>
 			</h4>
 		</div>
-		<div id="collapse{{ $loop->index }}" class="panel-collapse collapse in">
-			<div class="panel-body">
+		<div id="collapse{{ $loop->index }}" class="card-collapse collapse in">
+			<div class="card-body">
 				<img src="{{ $document->file }}" height="300" />
 			</div>
 		</div>
@@ -33,8 +31,8 @@
 			<div class="modal-dialog"> 
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title" id="H3">Respond to Upload</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 					</div>
 					<form action="/document/{{ $document->id }}" method="post" role="form">
 						@csrf
@@ -42,36 +40,36 @@
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-lg-6">
-									<img class="img-responsive" src="{{ $document->file_path }}" />
+									<img class="img-fluid" src="{{ $document->file }}" />
 								</div>
 								<div class="col-lg-6">
 									@if ($document->subject == "Time Card")
-										<div class="form-group">
+										<div class="mb-3">
 											<label>Card ID</label> 
 											<input class="form-control" name="id" />
 										</div>
-										<div class="form-group">
+										<div class="mb-3">
 											<label>Card Date</label>
 											<input type="date" class="form-control" name="date" />
 										</div>
-										<div class="form-group">
+										<div class="mb-3">
 											<label>Start Time</label>
 											<input type="time" class="form-control" name="time_start" />
 										</div>
-										<div class="form-group">
+										<div class="mb-3">
 											<label>End Time</label>
 											<input type="time" class="form-control" name="time_end" />
 										</div>
 									@elseif ($document->subject == "Sales Receipt")
-										<div class="form-group">
+										<div class="mb-3">
 											<label>Receipt ID</label>
 											<input type="text" class="form-control" name="id" />
 										</div>
-										<div class="form-group">
+										<div class="mb-3">
 											<label>Receipt Date</label>
 											<input type="date" class="form-control" name="date" />
 										</div>
-										<div class="form-group">
+										<div class="mb-3">
 											<label>Receipt Amount</label>
 											<input type="number" class="form-control" name="amount" />
 										</div>

@@ -12,33 +12,33 @@
 <p>Here are feedbacks sent by your employees to you.</p>
 @foreach ($feedbacks as $feedback)
     @if ($feedback->read == "U")
-        <div class="panel panel-default" >
-            <div class="panel-heading" >
-                <h4 class="panel-title">
-                    <strong>
-                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{ $feedback->id }}" href="/read/{{ $feedback->id }}">
+        <div class="card mb-3" >
+            <div class="card-header" >
+                <h4 class="card-title">
+                    <a href="/read/{{ $feedback->id }}">
+                        <span data-bs-toggle="collapse" data-bs-parent="#accordion" data-bs-target="#collapse{{ $feedback->id }}">
                             From: {{ $feedback->employee->first_name }} {{ $feedback->employee->last_name }} - {{ $feedback->date }} {{ $feedback->time }}
-                        </a>
-                    </strong>
+                        </span>
+                    </a>
                 </h4>
             </div>
-            <div id="collapse{{ $feedback->id }}" class="panel-collapse collapse">
-                <div class="panel-body">
+            <div id="collapse{{ $feedback->id }}" class="card-collapse collapse">
+                <div class="card-body">
                     {{ $feedback->feedback; }}
                 </div>
             </div>
         </div>
     @else
-        <div class="panel panel-default" >
-            <div class="panel-heading" > 
-                <h4 class="panel-title"> 
-                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{ $feedback->id }}" href="/read/{{ $feedback->id }}">
+        <div class="card mb-3" >
+            <div class="card-header" > 
+                <h4 class="card-title"> 
+                    <span data-bs-toggle="collapse" data-bs-parent="#accordion" data-bs-target="#collapse{{ $feedback->id }}">
                         From: {{ $feedback->employee->first_name }} {{ $feedback->employee->last_name }} - {{ $feedback->date }} {{ $feedback->time }}
-                    </a>
+                    </span>
                 </h4> 
             </div>
-            <div id="collapse{{ $feedback->id }}" class="panel-collapse collapse in">
-                <div class="panel-body">
+            <div id="collapse{{ $feedback->id }}" class="card-collapse collapse show">
+                <div class="card-body">
                     {{ $feedback->feedback; }}
                 </div>
             </div>

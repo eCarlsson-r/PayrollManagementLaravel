@@ -1,7 +1,7 @@
 @extends('guest')
 
 @section('content')
-<div class="form-group">
+<div class="mb-3">
     <form action="/password/reset" method="post" class="form-signin">
         @csrf
         @if ($errors->any())
@@ -22,19 +22,19 @@
                 Enter your new password and confirm
             </div>
             <div class="panel-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="email">E-mail address</label>
                     <input type="email" name="email" class="form-control" value={{ $email }} />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="password_confirmation">Confirm Password</label>
                     <input type="password" name="password_confirmation" class="form-control" />
                 </div>
-                <div class="form-group text-center">
+                <div class="mb-3 text-center">
                     <input name="login" class="btn btn-primary" type="submit" value="Reset Password">
                 </div>
             </div>

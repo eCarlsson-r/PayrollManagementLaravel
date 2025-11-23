@@ -17,31 +17,28 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-navbar" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
+        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
                 @mobile
+                <a href="/employee/{{ auth()->user()->employee->id }}/edit" class="navbar-brand" style="padding-top: 8px;">
+                    <img src="{{URL::asset('/banner.png')}}" width="" height="40" alt="" />
+                </a>
+
                 @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
-                <button type="button" class="navbar-toggle" data-toggle="dropdown">
+                <button class="navbar-toggler" type="button" data-bs-toggle="dropdown">
                     @if (count(auth()->user()->unreadNotifications) > 0)
-                        <span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span> <i class="fa fa-envelope"></i>&nbsp; <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-envelope"></i> <span class="badge bg-secondary">{{ count(auth()->user()->unreadNotifications) }}</span>
                     @else
-                        <i class="fa fa-envelope"></i>&nbsp; <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-envelope"></i>
                     @endif
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right">
+                <ul class="dropdown-menu">
                     @foreach (auth()->user()->unreadNotifications as $notification)
                         <li>
                             @if ($notification->type == "App\Notifications\FeedbackSent")
-                                <a href="/feedback/{{ $notification->data['id'] }}">
+                                <a class="dropdown-item" href="/feedback/{{ $notification->data['id'] }}">
                             @else
-                                <a href="/document/{{ $notification->data['id'] }}">
+                                <a class="dropdown-item" href="/document/{{ $notification->data['id'] }}">
                             @endif
                                 <div>
                                     <strong>{{ $notification->data['employee_name'] }}</strong>
@@ -56,7 +53,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="divider"></li>
+                        <li><hr class="dropdown-divider"></li>
                     @endforeach
                     <li>
                         <a class="text-center" href="/document">
@@ -65,150 +62,149 @@
                     </li>
                 </ul>
                 @endif
-                
-                <a href="/employee/{{ auth()->user()->employee->id }}/edit" class="navbar-brand" style="padding-top: 8px;">
-                    <img src="{{URL::asset('/banner.png')}}" width="" height="40" alt="" />
-                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu-navbar" aria-controls="menu-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 @elsemobile
                 <a href="/employee/{{ auth()->user()->employee->id }}/edit" class="navbar-brand" style="padding-top: 5px;">
                     <img src="{{URL::asset('/banner.png')}}" width="" height="40" alt="" />
                 </a>
                 @endmobile
-            </div>
+                <div class="collapse navbar-collapse" id="menu-navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'employee/'.auth()->user()->employee->id.'/edit') ? "active" : "" }}" href="/employee/{{ auth()->user()->employee->id }}/edit"> 
+                                <i class="fa fa-user"></i> Profile 
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'colleague') ? "active" : "" }}" href="/colleague">
+                                <i class="fa fa-search"></i> Colleague
+                            </a>
+                        </li>
+                        @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'team') ? "active" : "" }}" href="/team/">
+                                <i class="fa fa-sitemap"></i> Manage Team
+                            </a>
+                        </li>
+                        @endif
 
-            <div class="collapse navbar-collapse" id="menu-navbar">
-                <ul class="nav navbar-nav">
-                    <li class="{{ (request()->path() == 'employee/'.auth()->user()->employee->id.'/edit') ? "active" : "" }}">
-                        <a href="/employee/{{ auth()->user()->employee->id }}/edit"> 
-                            <i class="fa fa-user"></i> Profile 
-                        </a> 
-                    </li>
-                    <li class="{{ (request()->path() == 'colleague') ? "active" : "" }}">
-                        <a href="/colleague">
-                            <i class="fa fa-search"></i> Colleague
-                        </a>
-                    </li>
-                    @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
-                    <li class="{{ (request()->path() == 'team') ? "active" : "" }}">
-                        <a href="/team/">
-                            <i class="fa fa-sitemap"></i> Manage Team
-                        </a>
-                    </li>
-                    @endif
+                        @if (auth()->user()->type == "Employee" || auth()->user()->type=="Manager")
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'document/create') ? "active" : "" }}" href="/document/create">
+                                <i class="fa fa-upload"></i> Upload File  
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'feedback/create') ? "active" : "" }}" href="/feedback/create">
+                                <i class="fa fa-edit"></i> Write Feedback  
+                            </a>
+                        </li>
+                        @endif
 
-                    @if (auth()->user()->type == "Employee" || auth()->user()->type=="Manager")
-                    <li class="{{ (request()->path() == 'document/create') ? "active" : "" }}">
-                        <a href="/document/create">
-                            <i class="fa fa-upload"></i> Upload File  
-                        </a>
-                    </li>
-                    <li class="{{ (request()->path() == 'feedback/create') ? "active" : "" }}">
-                        <a href="/feedback/create">
-                            <i class="fa fa-edit"></i> Write Feedback  
-                        </a>
-                    </li>
-                    @endif
+                        @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
+                            <li class="nav-item">
+                                <a class="nav-link {{ (request()->path() == 'feedback') ? "active" : "" }}" href="/feedback">
+                                    <i class="fa fa-comments"></i> View Feedback
+                                </a>
+                            </li>
 
-                    @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
-                        <li class="{{ (request()->path() == 'feedback') ? "active" : "" }}">
-                            <a href="/feedback">
-                                <i class="fa fa-comments"></i> View Feedback
+                            <li class="nav-item">
+                                <a class="nav-link {{ (request()->path() == 'document') ? "active" : "" }}" href="/document">
+                                    <i class="fa fa-upload"></i> Pending Requests
+                                </a>
+                            </li>
+                        @endif
+                        
+                        @if (auth()->user()->type=="Admin")
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'employee') ? "active" : "" }}" href="/employee">
+                                <i class="fa fa-group"></i> Manage Employee
                             </a>
                         </li>
 
-                        <li class="{{ (request()->path() == 'document') ? "active" : "" }}">
-                            <a href="/document">
-                                <i class="fa fa-upload"></i> Pending Requests
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'payment/create') ? "active" : "" }}" href="/payment/create">
+                                <i class="fa fa-usd"></i> Proceed Payment
                             </a>
                         </li>
-                    @endif
-                    
-                    @if (auth()->user()->type=="Admin")
-                    <li class="{{ (request()->path() == 'employee') ? "active" : "" }}">
-                        <a href="/employee">
-                            <i class="fa fa-group"></i> Manage Employee
-                        </a>
-                    </li>
-
-                    <li class="{{ (request()->path() == 'payment/create') ? "active" : "" }}">
-                        <a href="/payment/create">
-                            <i class="fa fa-usd"></i> Proceed Payment
-                        </a>
-                    </li>
-                    @endif
-            
-                    <li class="{{ (request()->path() == 'payment') ? "active" : "" }}">
-                        <a href="/payment">
-                            <i class="fa fa-list"></i> Payment History
-                        </a>
-                    </li>
-
-                    @notmobile
-                    @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                @if (count(auth()->user()->unreadNotifications) > 0)
-                                    <span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span> <i class="fa fa-envelope"></i>&nbsp; <i class="fa fa-chevron-down"></i>
-                                @else
-                                    <i class="fa fa-envelope"></i>&nbsp; <i class="fa fa-chevron-down"></i>
-                                @endif
+                        @endif
+                
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'payment') ? "active" : "" }}" href="/payment">
+                                <i class="fa fa-list"></i> Payment History
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                @foreach (auth()->user()->unreadNotifications as $notification)
+                        </li>
+
+                        @notmobile
+                        @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if (count(auth()->user()->unreadNotifications) > 0)
+                                        <span class="badge bg-secondary">{{ count(auth()->user()->unreadNotifications) }}</span> <i class="fa fa-envelope"></i>
+                                    @else
+                                        <i class="fa fa-envelope"></i>
+                                    @endif
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    @foreach (auth()->user()->unreadNotifications as $notification)
+                                        <li>
+                                            @if ($notification->type == "App\Notifications\FeedbackSent")
+                                                <a class="dropdown-item" href="/feedback/{{ $notification->id }}">
+                                            @else
+                                                <a class="dropdown-item" href="/document/{{ $notification->id }}">
+                                            @endif
+                                                <div>
+                                                    <strong>{{ $notification->data['employee_name'] }}</strong>
+                                                </div>
+                                                <div>
+                                                    {{ $notification->data['title'] }}<br /> 
+                                                    @if ($notification->type == "App\Notifications\FeedbackSent")
+                                                        <span class="label label-info">Feedback</span>
+                                                    @else
+                                                        <span class="label label-warning">Document</span>
+                                                    @endif
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    @endforeach
                                     <li>
-                                        @if ($notification->type == "App\Notifications\FeedbackSent")
-                                            <a href="/feedback/{{ $notification->id }}">
-                                        @else
-                                            <a href="/document/{{ $notification->id }}">
-                                        @endif
-                                            <div>
-                                                <strong>{{ $notification->data['employee_name'] }}</strong>
-                                            </div>
-                                            <div>
-                                                {{ $notification->data['title'] }}<br /> 
-                                                @if ($notification->type == "App\Notifications\FeedbackSent")
-                                                    <span class="label label-info">Feedback</span>
-                                                @else
-                                                    <span class="label label-warning">Document</span>
-                                                @endif
-                                            </div>
+                                        <a class="text-center" href="/document">
+                                            <strong>Read All Messages</strong> <i class="fa fa-angle-right"></i>
                                         </a>
                                     </li>
-                                    <li class="divider"></li>
-                                @endforeach
-                                <li>
-                                    <a class="text-center" href="/document">
-                                        <strong>Read All Messages</strong> <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                    @endnotmobile
+                                </ul>
+                            </li>
+                        @endif
+                        @endnotmobile
 
-                    <li>
-                        <a href="/logout">
-                            @notmobile
-                            @if (auth()->user()->type=="Admin")
-                                <i class="fa fa-sign-out"></i>
-                            @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                @notmobile
+                                @if (auth()->user()->type=="Admin")
+                                    <i class="fa fa-sign-out"></i>
+                                @else
+                                    <i class="fa fa-sign-out"></i> Log Out
+                                @endif
+                                @elsenotmobile
                                 <i class="fa fa-sign-out"></i> Log Out
-                            @endif
-                            @elsenotmobile
-                            <i class="fa fa-sign-out"></i> Log Out
-                            @endnotmobile
-                        </a>
-                    </li>
-                </ul>
+                                @endnotmobile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         
-        <div class="container-fluid">
+        <div class="content container-fluid">
         @yield('content')
         </div>
 
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <p class="navbar-text text-center">&copy; Carlsson Studio 2025</p>
+        <nav class="navbar fixed-bottom bg-body-tertiary justify-content-center">
+            <span class="navbar-text">&copy; Carlsson Studio 2025</span>
         </nav>
 
         <script>
