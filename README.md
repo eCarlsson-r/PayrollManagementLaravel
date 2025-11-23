@@ -36,7 +36,7 @@ The right solution in managing the payroll for a company with employees and mana
 - Install Docker, then run Laravel Sail command **./vendor/bin/sail up --build --d**
 - Run in your browser at localhost. Congratulations! You have entered the application, then login with
 ```
-Email : admin@oayroll.com
+Email : admin@payroll.com
 Password : 112233
 ```
 - After login, feel free to try create manager and employee accounts. Tutorial will be available at Wiki section.
