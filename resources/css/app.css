@@ -16,6 +16,7 @@
 
 .content.container-fluid {
     padding-top: 80px;
+    padding-bottom: 50px;
 }
 
 #install-button img {

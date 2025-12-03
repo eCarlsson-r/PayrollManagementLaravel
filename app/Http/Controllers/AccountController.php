@@ -129,8 +129,9 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
+        auth()->user()->deletePushSubscription($request->endpoint);
         auth()->logout();
         return redirect('/');
     }

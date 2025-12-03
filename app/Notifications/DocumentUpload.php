@@ -31,7 +31,7 @@ class DocumentUpload extends Notification implements ShouldBroadcastNow
      */
     public function via(object $notifiable): array
     {
-        return ['database', WebPushChannel::class];
+        return ['database', 'broadcast', WebPushChannel::class];
     }
 
     /**

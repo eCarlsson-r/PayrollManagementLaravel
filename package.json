@@ -18,6 +18,7 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
+        "@vitejs/plugin-basic-ssl": "^2.1.0",
         "bootstrap": "^5.3.8",
         "bootstrap-fileinput": "^5.5.4",
         "bootstrap-table": "^1.25.0",

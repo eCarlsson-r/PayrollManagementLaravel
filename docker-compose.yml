@@ -1,11 +1,30 @@
 services:
+    nginx:
+        image: 'nginx:latest'
+        ports:
+            - '${HTTP_PORT:-8000}:80'
+            - '${SSL_PORT:-443}:443'
+        environment:
+            - SSL_PORT=${SSL_PORT:-443}
+            - APP_SERVICE=${APP_SERVICE:-laravel.test}
+            - SERVER_NAME=${SERVER_NAME:-localhost}
+            - SSL_DOMAIN=${SSL_DOMAIN:-localhost}
+            - SSL_ALT_NAME=${SSL_ALT_NAME:-DNS:localhost}
+        volumes:
+            - 'sail-nginx:/etc/nginx/certs'
+            - './nginx/templates:/etc/nginx/templates'
+            - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
+        depends_on:
+            - ${APP_SERVICE:-laravel.test}
+        networks:
+            - sail
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.4
+            context: './vendor/laravel/sail/runtimes/8.4'
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.4/app
+        image: 'sail-8.4/app'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -25,6 +44,29 @@ services:
             - mysql
             - redis
             - mailpit
+    worker:
+        build:
+            context: ./vendor/laravel/sail/runtimes/8.4
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: "${WWWGROUP}"
+        image: sail-8.4/app
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        command: "php artisan queue:work"
+        environment:
+            WWWUSER: "${WWWUSER}"
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: "${SAIL_XDEBUG_MODE:-off}"
+            XDEBUG_CONFIG: "${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}"
+            IGNITION_LOCAL_SITES_PATH: "${PWD}"
+        volumes:
+            - ".:/var/www/html"
+        networks:
+            - sail
+        depends_on:
+            - mysql
+            - redis
     reverb:
         build:
             context: ./vendor/laravel/sail/runtimes/8.4
@@ -35,8 +77,8 @@ services:
         extra_hosts:
             - "host.docker.internal:host-gateway"
         ports:
-            - '${REVERB_PORT:-8080}:8080'
-        command: 'php artisan reverb:start'
+            - "${REVERB_PORT:-8080}:8080"
+        command: "php artisan reverb:start"
         environment:
             WWWUSER: "${WWWUSER}"
             LARAVEL_SAIL: 1
@@ -44,32 +86,9 @@ services:
             XDEBUG_CONFIG: "${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}"
             IGNITION_LOCAL_SITES_PATH: "${PWD}"
         volumes:
-            - '.:/var/www/html'
+            - ".:/var/www/html"
         networks:
             - sail
-        depends_on:
-            - mysql
-            - redis
-    queue:
-        build:
-            context: ./vendor/laravel/sail/runtimes/8.4
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: "${WWWGROUP}"
-        image: sail-8.4/app
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        command: php artisan queue:work
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
-        volumes:
-          - '.:/var/www/html'
-        networks:
-          - sail
         depends_on:
             - mysql
             - redis
@@ -124,6 +143,8 @@ networks:
     sail:
         driver: bridge
 volumes:
+    sail-nginx:
+        driver: local
     sail-mysql:
         driver: local
     sail-redis:

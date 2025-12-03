@@ -11,35 +11,35 @@ window.Pusher = Pusher;
 window.Echo = new Echo({
     broadcaster: 'reverb',
     key: import.meta.env.VITE_REVERB_APP_KEY,
-    wsHost: (window.location.hostname == import.meta.env.VITE_REVERB_HOST)?import.meta.env.VITE_REVERB_HOST:window.location.hostname,
+    wsHost: (window.location.hostname == import.meta.env.VITE_REVERB_HOST) ? import.meta.env.VITE_REVERB_HOST : window.location.hostname,
     wsPort: import.meta.env.VITE_REVERB_PORT ?? 80,
     wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
-    enabledTransports: ['ws', 'wss'],
+    enabledTransports: ((import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https') ? ['ws', 'wss'] : ['ws'],
 });
 
 /** 
  * Testing Channels & Events & Connections
  */
-window.Echo.private("App.Models.Account."+window["userId"]).notification((notification) => {
+window.Echo.private("App.Models.Account." + window["userId"]).notification((notification) => {
     if (notification.type == "App\\Notifications\\FeedbackSent") {
         new Audio('/audio/feedback-bell.mp3').play();
     } else if (notification.type == "App\\Notifications\\DocumentUpload") {
         new Audio('/audio/document-bell.mp3').play();
     }
-    
+
     if (document.querySelector(".badge")) document.querySelector(".badge").innerText++;
-    else document.querySelector(".fa.fa-envelope").insertAdjacentHTML('beforebegin', '<span class="badge">1</span> ');
+    else document.querySelector(".fa.fa-envelope").insertAdjacentHTML('beforebegin', '<span class="badge bg-secondary">1</span> ');
 
     var notificationObject = '<li>';
     if (notification.type == "App\\Notifications\\FeedbackSent") {
-        notificationObject += '<a href="/feedback/'+notification.id+'">';
+        notificationObject += '<a href="/feedback/' + notification.id + '">';
     } else if (notification.type == "App\\Notifications\\DocumentUpload") {
-        notificationObject += '<a href="/document/'+notification.id+'">';
+        notificationObject += '<a href="/document/' + notification.id + '">';
     }
-    
-    notificationObject += '<div><strong>'+notification.employee_name+'</strong></div>';
-    notificationObject += '<div>'+notification.title+'<br />';
+
+    notificationObject += '<div><strong>' + notification.employee_name + '</strong></div>';
+    notificationObject += '<div>' + notification.title + '<br />';
 
     if (notification.type == "App\\Notifications\\FeedbackSent") {
         notificationObject += '<span class="label label-info">Feedback</span>';
@@ -100,7 +100,7 @@ function subscribeUser() {
             return registration.pushManager.subscribe(subscribeOptions);
         })
         .then((pushSubscription) => {
-            console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+            document.querySelector("a[href='/logout']").setAttribute("href", "/logout?endpoint=" + pushSubscription.endpoint);
             storePushSubscription(pushSubscription);
         });
 }

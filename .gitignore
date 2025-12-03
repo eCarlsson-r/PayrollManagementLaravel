@@ -26,3 +26,7 @@ Thumbs.db
 
 # Local redis dump
 dump.rdb
+
+**/caddy
+frankenphp
+frankenphp-worker.php
