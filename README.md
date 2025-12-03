@@ -29,6 +29,7 @@ The right solution in managing the payroll for a company with employees and mana
 - Reorganized the pages view using Laravel's Blade template engine.
 - Revamped notifications to managers / admin using Laravel built-in methods.
 - Revamped layout design into using Bootstrap default classes, especially in navigation menu.
+- Revamped layout design into using Bootstrap default classes, especially in navigation menu.
 - Simplify register function to only input registered (new employee) email and desired password.
 - Simplify file upload to single file at a time.
 - Forget password now send link for employee to reset their password, rather than sending the forgotten password as in the original project.
