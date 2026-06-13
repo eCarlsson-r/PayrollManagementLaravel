@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string("employee_id", 8);
+            $table->foreignId("employee_id")->constrained("employees")->onDelete("cascade");
             $table->text("manager");
             $table->text("subject");
             $table->timestamps();
@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string("file_name");
             $table->text("file_path");
             $table->string("verified", 1);
-
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

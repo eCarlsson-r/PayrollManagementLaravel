@@ -17,7 +17,7 @@ class PaymentCalculatorTest extends TestCase
 
     public function test_hourly_calculation_with_overtime()
     {
-        $employee = Employee::create(['id' => 'SF910001', 'first_name' => 'Hourly', 'last_name' => 'OT', 'position' => 'Employee', 'dob' => '1990-01-01', 'email' => 'h_ot@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Hourly', 'last_name' => 'OT', 'position' => 'Employee', 'dob' => '1990-01-01', 'email' => 'h_ot@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         Scheme::create(['employee_id' => $employee->id, 'scheme' => 'HOURLY', 'base_amount' => 10]);
 
@@ -38,7 +38,7 @@ class PaymentCalculatorTest extends TestCase
     public function test_monthly_late_day_thresholds_at_month_end()
     {
         // choose a day that is month-end for test; use PaymentCalculator with today set to month-end
-        $employee = Employee::create(['id' => 'SF910002', 'first_name' => 'Monthly', 'last_name' => 'Late', 'position' => 'Employee', 'dob' => '1990-01-02', 'email' => 'm_late@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Monthly', 'last_name' => 'Late', 'position' => 'Employee', 'dob' => '1990-01-02', 'email' => 'm_late@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         Scheme::create(['employee_id' => $employee->id, 'scheme' => 'MONTHLY', 'base_amount' => 1000]);
 
@@ -60,7 +60,7 @@ class PaymentCalculatorTest extends TestCase
 
     public function test_commission_non_month_end_returns_commission_only()
     {
-        $employee = Employee::create(['id' => 'SF910003', 'first_name' => 'Comm', 'last_name' => 'Now', 'position' => 'Employee', 'dob' => '1990-01-03', 'email' => 'comm_now@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Comm', 'last_name' => 'Now', 'position' => 'Employee', 'dob' => '1990-01-03', 'email' => 'comm_now@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         Scheme::create(['employee_id' => $employee->id, 'scheme' => 'COMMISSION', 'base_amount' => 0, 'base_commission_rate' => 10]);
 
@@ -80,7 +80,7 @@ class PaymentCalculatorTest extends TestCase
 
     public function test_commission_month_end_with_late_days_adjusts_amount()
     {
-        $employee = Employee::create(['id' => 'SF910004', 'first_name' => 'Comm', 'last_name' => 'Late', 'position' => 'Employee', 'dob' => '1990-01-04', 'email' => 'comm_late@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Comm', 'last_name' => 'Late', 'position' => 'Employee', 'dob' => '1990-01-04', 'email' => 'comm_late@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         Scheme::create(['employee_id' => $employee->id, 'scheme' => 'COMMISSION', 'base_amount' => 1000, 'base_commission_rate' => 10]);
 

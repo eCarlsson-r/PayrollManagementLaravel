@@ -15,7 +15,6 @@ class FeedbackSentTest extends TestCase
     public function test_to_database_payload()
     {
         $employee = Employee::create([
-            'id' => 'SF900001',
             'first_name' => 'Unit',
             'last_name' => 'Tester',
             'position' => 'Employee',

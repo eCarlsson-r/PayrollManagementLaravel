@@ -27,7 +27,6 @@ class CheckAccountTypeTest extends TestCase
     public function test_handles_authorized_user_allows_request()
     {
         $employee = Employee::create([
-            'id' => 'SF900003',
             'first_name' => 'Mid',
             'last_name' => 'User',
             'position' => 'Employee',

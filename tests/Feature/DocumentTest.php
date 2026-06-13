@@ -23,11 +23,11 @@ class DocumentTest extends TestCase
         Storage::fake('public');
 
         // Create manager employee and account
-        $manager = Employee::create(['id' => 'MG000001', 'first_name' => 'Mana', 'last_name' => 'Ger', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'manager_emp@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $manager = Employee::create(['first_name' => 'Mana', 'last_name' => 'Ger', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'manager_emp@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'manager@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
 
         // Create regular employee assigned to manager
-        $employee = Employee::create(['id' => 'SF000001', 'first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
         $employeeAccount = Account::create(['employee_id' => $employee->id, 'email' => 'employee@example.test', 'password' => bcrypt('password'), 'type' => 'Employee']);
 
         // Act as the employee and upload a file
@@ -61,9 +61,9 @@ class DocumentTest extends TestCase
     public function test_update_creates_timecard_and_marks_verified()
     {
         // Create manager and account and act as manager
-        $manager = Employee::create(['id' => 'MG000002', 'first_name' => 'Mana2', 'last_name' => 'Ger2', 'position' => 'Manager', 'dob' => '1980-01-02', 'email' => 'manager2_emp@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $manager = Employee::create(['first_name' => 'Mana2', 'last_name' => 'Ger2', 'position' => 'Manager', 'dob' => '1980-01-02', 'email' => 'manager2_emp@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'manager2@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
-        $employee = Employee::create(['id' => 'SF000002', 'first_name' => 'Em', 'last_name' => 'Ployee2', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Em', 'last_name' => 'Ployee2', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         // Create a document with subject Time Card
         $document = Document::create([
@@ -101,11 +101,11 @@ class DocumentTest extends TestCase
     public function test_index_shows_documents_for_manager()
     {
         // Create manager employee and account
-        $manager = Employee::create(['id' => 'MG000010', 'first_name' => 'ManagerX', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'manx@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $manager = Employee::create(['first_name' => 'ManagerX', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'manx@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'manxacct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
 
         // Create an employee belonging to the manager
-        $employee = Employee::create(['id' => 'SF000010', 'first_name' => 'Worker', 'last_name' => 'Bee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'worker@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Worker', 'last_name' => 'Bee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'worker@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         // Create a document for that employee assigned to the manager
         $document = Document::create([
@@ -131,8 +131,8 @@ class DocumentTest extends TestCase
     {
         Storage::fake('public');
 
-        $manager = Employee::create(['id' => 'MG000020', 'first_name' => 'NoFileMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'nofilemgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
-        $employee = Employee::create(['id' => 'SF000020', 'first_name' => 'NoFileEmp', 'last_name' => 'One', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'nofileemp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $manager = Employee::create(['first_name' => 'NoFileMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'nofilemgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'NoFileEmp', 'last_name' => 'One', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'nofileemp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
         $employeeAccount = Account::create(['employee_id' => $employee->id, 'email' => 'nofileempacct@example.test', 'password' => bcrypt('password'), 'type' => 'Employee']);
 
         $this->actingAs($employeeAccount);
@@ -151,8 +151,8 @@ class DocumentTest extends TestCase
     {
         Storage::fake('public');
 
-        $manager = Employee::create(['id' => 'MG000021', 'first_name' => 'WrongFieldMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'wrongfieldmgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
-        $employee = Employee::create(['id' => 'SF000021', 'first_name' => 'WrongFieldEmp', 'last_name' => 'One', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'wrongfieldemp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $manager = Employee::create(['first_name' => 'WrongFieldMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'wrongfieldmgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'WrongFieldEmp', 'last_name' => 'One', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'wrongfieldemp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
         $employeeAccount = Account::create(['employee_id' => $employee->id, 'email' => 'wrongfieldempacct@example.test', 'password' => bcrypt('password'), 'type' => 'Employee']);
 
         $this->actingAs($employeeAccount);
@@ -173,9 +173,9 @@ class DocumentTest extends TestCase
 
     public function test_update_creates_receipt_when_sales_receipt()
     {
-        $manager = Employee::create(['id' => 'MG000030', 'first_name' => 'ReceiptMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'receiptmgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $manager = Employee::create(['first_name' => 'ReceiptMgr', 'last_name' => 'One', 'position' => 'Manager', 'dob' => '1980-01-01', 'email' => 'receiptmgr@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'receiptmgracct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
-        $employee = Employee::create(['id' => 'SF000030', 'first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         $document = Document::create([
             'employee_id' => $employee->id,

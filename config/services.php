@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'band' => [
+        'api_key' => env('BAND_API_KEY'),
+    ],
+
 ];

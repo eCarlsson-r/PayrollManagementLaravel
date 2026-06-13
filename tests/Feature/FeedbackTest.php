@@ -20,7 +20,6 @@ class FeedbackTest extends TestCase
 
         // create manager and account
         $manager = Employee::create([
-            'id' => 'MG100000',
             'first_name' => 'Mgr',
             'last_name' => 'One',
             'position' => 'Manager',
@@ -34,7 +33,6 @@ class FeedbackTest extends TestCase
 
         // create employee and account
         $employee = Employee::create([
-            'id' => 'SF100000',
             'first_name' => 'Emp',
             'last_name' => 'One',
             'position' => 'Employee',
@@ -71,7 +69,6 @@ class FeedbackTest extends TestCase
     {
         // create manager and account
         $manager = Employee::create([
-            'id' => 'MG100001',
             'first_name' => 'Mgr2',
             'last_name' => 'Two',
             'position' => 'Manager',
@@ -82,7 +79,7 @@ class FeedbackTest extends TestCase
             'pay_method' => 'cash'
         ]);
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'mgr2acct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
-        $employee = Employee::create(['id' => 'SF200000', 'first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Em', 'last_name' => 'Ployee', 'position' => 'Employee', 'manager' => $manager->id, 'dob' => '1990-01-01', 'email' => 'employee_emp@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
 
         // create feedback
         $fb = Feedback::create([
@@ -108,7 +105,6 @@ class FeedbackTest extends TestCase
     public function test_index_returns_feedback_list_for_manager()
     {
         $manager = Employee::create([
-            'id' => 'MG100002',
             'first_name' => 'Mgr3',
             'last_name' => 'Three',
             'position' => 'Manager',
@@ -121,8 +117,7 @@ class FeedbackTest extends TestCase
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'mgr3acct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
 
         // create the employee referenced by the feedback so the view can render employee data
-        Employee::create([
-            'id' => 'SF300000',
+        $employee = Employee::create([
             'first_name' => 'Sub',
             'last_name' => 'Ord',
             'position' => 'Employee',
@@ -135,7 +130,7 @@ class FeedbackTest extends TestCase
         ]);
 
         Feedback::create([
-            'employee_id' => 'SF300000',
+            'employee_id' => $employee->id,
             'manager' => $manager->id,
             'time' => '10:00:00',
             'date' => '2025-11-20',
@@ -156,7 +151,6 @@ class FeedbackTest extends TestCase
     {
 
         $manager = Employee::create([
-            'id' => 'MG200000',
             'first_name' => 'Noti',
             'last_name' => 'Mgr',
             'position' => 'Manager',
@@ -169,7 +163,6 @@ class FeedbackTest extends TestCase
         $managerAccount = Account::create(['employee_id' => $manager->id, 'email' => 'notimgracct@example.test', 'password' => bcrypt('password'), 'type' => 'Manager']);
 
         $employee = Employee::create([
-            'id' => 'SF200001',
             'first_name' => 'Sender',
             'last_name' => 'User',
             'position' => 'Employee',

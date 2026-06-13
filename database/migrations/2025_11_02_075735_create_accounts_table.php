@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string("employee_id", 8);
+            $table->foreignId("employee_id")->constrained("employees")->onDelete("cascade");
             $table->string("email");
             $table->string("password", 60);
             $table->string("type", 100);
             $table->unique("email");
-
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

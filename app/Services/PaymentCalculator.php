@@ -13,7 +13,7 @@ class PaymentCalculator
      * Calculate payments for different schemes.
      * Returns an array of payment rows suitable for the PaymentCreate view.
      */
-    public function calculatePayments(string $today = null): array
+    public function calculatePayments(?string $today = null): array
     {
         $calculation = [];
 

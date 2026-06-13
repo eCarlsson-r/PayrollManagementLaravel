@@ -17,11 +17,9 @@ class Employee extends Model
     use HasFactory;
 
     protected $table = 'employees';
-    protected $primaryKey = 'id';
-    public $incrementing = false;
     public $timestamps = false;
     protected $fillable = [
-        'id', 'first_name', 'last_name', 'position', 'dob', 
+        'first_name', 'last_name', 'position', 'dob', 
         'email', 'contact', 'address', 'manager', 
         'pay_method', 'bank', 'bank_account'
     ];

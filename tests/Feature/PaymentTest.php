@@ -19,11 +19,11 @@ class PaymentTest extends TestCase
     public function test_index_shows_admin_payments()
     {
         // create an employee and payment
-        $emp = Employee::create(['id' => 'SF500001', 'first_name' => 'Pay', 'last_name' => 'ee', 'position' => 'Employee', 'dob' => '1990-01-01', 'email' => 'payee@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $emp = Employee::create(['first_name' => 'Pay', 'last_name' => 'ee', 'position' => 'Employee', 'dob' => '1990-01-01', 'email' => 'payee@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
         Payment::create(['employee_id' => $emp->id, 'date' => '2025-11-20', 'amount' => 123000000, 'method' => 'cash']);
 
         // admin account
-        $adminEmp = Employee::create(['id' => 'AD500001', 'first_name' => 'Admin', 'last_name' => 'One', 'position' => 'Admin', 'dob' => '1980-01-01', 'email' => 'admin@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
+        $adminEmp = Employee::create(['first_name' => 'Admin', 'last_name' => 'One', 'position' => 'Admin', 'dob' => '1980-01-01', 'email' => 'admin@example.test', 'contact' => '000', 'address' => 'addr', 'pay_method' => 'cash']);
         $admin = Account::create(['employee_id' => $adminEmp->id, 'email' => 'adminacct@example.test', 'password' => bcrypt('password'), 'type' => 'Admin']);
 
         $this->actingAs($admin);
@@ -38,7 +38,7 @@ class PaymentTest extends TestCase
     public function test_create_calculates_hourly_amount()
     {
         // employee with hourly scheme
-        $employee = Employee::create(['id' => 'SF500002', 'first_name' => 'Hourly', 'last_name' => 'User', 'position' => 'Employee', 'dob' => '1990-01-02', 'email' => 'hourly@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Hourly', 'last_name' => 'User', 'position' => 'Employee', 'dob' => '1990-01-02', 'email' => 'hourly@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
         $account = Account::create(['employee_id' => $employee->id, 'email' => 'hourlyacct@example.test', 'password' => bcrypt('password'), 'type' => 'Admin']);
 
         // scheme: HOURLY base_amount 10
@@ -63,7 +63,7 @@ class PaymentTest extends TestCase
 
     public function test_store_creates_payment_records()
     {
-        $employee = Employee::create(['id' => 'SF500003', 'first_name' => 'Store', 'last_name' => 'User', 'position' => 'Employee', 'dob' => '1990-01-03', 'email' => 'store@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'bank']);
+        $employee = Employee::create(['first_name' => 'Store', 'last_name' => 'User', 'position' => 'Employee', 'dob' => '1990-01-03', 'email' => 'store@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'bank']);
         $account = Account::create(['employee_id' => $employee->id, 'email' => 'storeacct@example.test', 'password' => bcrypt('password'), 'type' => 'Admin']);
 
         $this->actingAs($account);
@@ -83,7 +83,7 @@ class PaymentTest extends TestCase
     public function test_create_includes_commission_scheme_non_month_end()
     {
         // employee with commission scheme
-        $employee = Employee::create(['id' => 'SF500004', 'first_name' => 'Comm', 'last_name' => 'User', 'position' => 'Employee', 'dob' => '1990-01-04', 'email' => 'comm@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
+        $employee = Employee::create(['first_name' => 'Comm', 'last_name' => 'User', 'position' => 'Employee', 'dob' => '1990-01-04', 'email' => 'comm@example.test', 'contact' => '111', 'address' => 'addr', 'pay_method' => 'cash']);
         $account = Account::create(['employee_id' => $employee->id, 'email' => 'commacct@example.test', 'password' => bcrypt('password'), 'type' => 'Admin']);
 
         // scheme: COMMISSION

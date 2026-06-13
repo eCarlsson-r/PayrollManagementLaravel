@@ -15,7 +15,6 @@ class DocumentUploadTest extends TestCase
     public function test_to_database_payload()
     {
         $employee = Employee::create([
-            'id' => 'SF900002',
             'first_name' => 'Doc',
             'last_name' => 'Tester',
             'position' => 'Employee',

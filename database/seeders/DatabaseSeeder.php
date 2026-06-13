@@ -20,17 +20,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $admin = Employee::create([
-            'id'=>'admin', 'first_name' => 'Admin', 'last_name' => '', 
+            'first_name' => 'Admin', 'last_name' => '', 
             'position'=>'', 'dob'=>'1988-03-20', 'email' => 'admin@payroll.com',
             'contact'=>'082349473628', 'address' => '', 'manager' => '', 
             'pay_method' => 'cash', 'bank' => '', 'bank_account' => ''
         ]);
 
         Account::create([
+            'employee_id' => $admin->id,
             'email' => 'admin@payroll.com',
             'password' => Hash::make('112233'),
-            'type' => 'Admin',
-            'employee_id' => $admin->id
+            'type' => 'Admin'
         ]);
 
         Career::create([
@@ -100,5 +100,8 @@ class DatabaseSeeder extends Seeder
             'end_date' => '2025-12-31',
             'description' => ''
         ]);
+
+        // Sample payroll data (schemes/timecards/receipts) for the Band agents.
+        $this->call(PayrollSampleSeeder::class);
     }
 }
