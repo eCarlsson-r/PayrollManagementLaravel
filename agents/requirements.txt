@@ -1,0 +1,10 @@
+# Band agent pipeline dependencies.
+#
+# band-sdk imports as `thenvoi`. The [anthropic] extra is pulled in case an
+# agent wants LLM reasoning, but the agents here use SimpleAdapter with
+# deterministic handlers, so no LLM call is strictly required.
+band-sdk[anthropic]
+httpx>=0.27
+python-dotenv>=1.0
+# OpenAI-compatible client used for AI/ML API (Agent 3) and Featherless (Agent 4).
+openai>=1.30

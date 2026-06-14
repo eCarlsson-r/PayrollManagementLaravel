@@ -120,7 +120,7 @@ class PayrollApiController extends Controller
         foreach ($items as $index => $item) {
             $validator = Validator::make(is_array($item) ? $item : [], [
                 'reason' => ['required', 'string'],
-                'employee_id' => ['nullable', 'string'],
+                'employee_id' => ['nullable'],
                 'period' => ['nullable', 'string'],
                 'severity' => ['nullable', 'string'],
                 'gross_amount' => ['nullable', 'numeric'],
