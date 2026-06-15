@@ -24,6 +24,8 @@ import traceback
 from band import Agent
 from band.core.simple_adapter import SimpleAdapter
 
+from common.payroll_api import PayrollClient
+
 # --- Agent display names (must match the agents created in your Band workspace) ---
 DATA_COLLECTOR = "Data Collector"
 PAYROLL_CALCULATOR = "Payroll Calculator"
@@ -70,6 +72,9 @@ class BasePayrollAdapter(SimpleAdapter):
 
     def __init__(self):
         super().__init__(history_converter=None)
+        # Shared Laravel client — used for the workflow chat log (and reused by
+        # subclasses for calculate/submit/flag).
+        self.client = PayrollClient()
 
     async def on_message(
         self,
@@ -116,6 +121,14 @@ class BasePayrollAdapter(SimpleAdapter):
         except json.JSONDecodeError:
             return None
 
+    async def _log(self, content: str, *, period: str | None = None, type: str = "message") -> None:
+        """Record a chat message to Laravel for the /workflow page. Never raises
+        (logging must not break the pipeline)."""
+        try:
+            await self.client.log(content=content, period=period, agent=self.name, type=type)
+        except Exception:
+            pass
+
     async def handoff(self, tools, payload: dict, summary: str | None = None) -> None:
         """Send `payload` to the next agent via @mention."""
         if not self.next_agent:
@@ -124,8 +137,10 @@ class BasePayrollAdapter(SimpleAdapter):
         prefix = f"@{self.next_agent} "
         note = f"{summary}\n" if summary else ""
         await tools.send_message(prefix + note + body, mentions=[self.next_agent])
+        # Mirror the human-readable summary into the workflow chat log.
+        await self._log(summary or f"Handed off to {self.next_agent}.", period=payload.get("period"), type="handoff")
 
-    async def finish(self, tools, text: str) -> None:
+    async def finish(self, tools, text: str, period: str | None = None) -> None:
         """Terminal message addressed to the human(s) in the room.
 
         Band requires at least one mention on every message. We mention only
@@ -154,6 +169,9 @@ class BasePayrollAdapter(SimpleAdapter):
             # No human to address; emit as an event so we never crash on the
             # "at least one mention required" rule.
             await tools.send_event(text, message_type="task")
+
+        # Mirror the final report into the workflow chat log.
+        await self._log(text, period=period, type="report")
 
 
 # --------------------------------------------------------------------------- #

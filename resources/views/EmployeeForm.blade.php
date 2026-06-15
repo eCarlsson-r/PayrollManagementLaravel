@@ -5,18 +5,16 @@
 @section('content')
 <form action="/employee" method="post">
     @csrf
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="pull-left"> Employee Data </h2>
-            <h2 class="pull-right"><button class="btn btn-primary" type="submit">Submit</button></h2>
-        </div>
+    <div class="page-head">
+        <h2>Employee Data</h2>
+        <div class="page-actions"><button class="btn btn-primary" type="submit">Submit</button></div>
     </div>
     <hr />
     <div class="row">
         <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading"> Personal </div>
-                <div class="panel-body">
+            <div class="card h-100">
+                <div class="card-header"> Personal </div>
+                <div class="card-body">
                     <div class="mb-3">
                         <label> First Name </label>
                         <input name="first_name" class="form-control" value="{{ $first_name ?? '' }}"/>
@@ -45,12 +43,12 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading"> Employment Scheme </div>
-                <div class="panel-body">
+            <div class="card h-100">
+                <div class="card-header"> Employment Scheme </div>
+                <div class="card-body">
                     <div class="mb-3">
                         <label> Position-POS </label>
-                        <select class="form-control" name="position">
+                        <select class="form-select" name="position">
                             <option value="Employee" {{ isset($position) && $position == 'Employee' ? 'selected' : '' }}>Employee</option>
                             <option value="Manager" {{ isset($position) && $position == 'Manager' ? 'selected' : '' }}>Manager</option>
                         </select>
@@ -58,7 +56,7 @@
 
                     <div class="mb-3">
                         <label>Employment Scheme</label>
-                        <select class="form-control" name="scheme">
+                        <select class="form-select" name="scheme">
                             <option selected> </option>
                             <option value="HOURLY" {{ isset($scheme) && $scheme == 'HOURLY' ? 'selected' : '' }}>Hourly basis</option>
                             <option value="MONTHLY" {{ isset($scheme) && $scheme == 'MONTHLY' ? 'selected' : '' }}>Salaried Employee</option>
@@ -78,12 +76,12 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading"> Extras </div>
-                <div class="panel-body">
+            <div class="card h-100">
+                <div class="card-header"> Extras </div>
+                <div class="card-body">
                     <div class="mb-3">
                         <label> Payment Method </label>
-                        <select name="pay_method" class="form-control">
+                        <select name="pay_method" class="form-select">
                             <option value="cash" {{ isset($pay_method) && $pay_method == 'cash' ? 'selected' : '' }}>Cash</option>
                             <option value="delver" {{ isset($pay_method) && $pay_method == 'delver' ? 'selected' : '' }}>Delivered to Postal Address</option>
                             <option value="trnsfr" {{ isset($pay_method) && $pay_method == 'trnsfr' ? 'selected' : '' }}>Transfer to Bank Account</option>

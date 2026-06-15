@@ -17,11 +17,14 @@ class PayrollFlag extends Model
         'net_amount',
         'data',
         'resolved',
+        'decision',
+        'resolved_at',
     ];
 
     protected $casts = [
         'data' => 'array',
         'resolved' => 'boolean',
+        'resolved_at' => 'datetime',
     ];
 
     public function employee()

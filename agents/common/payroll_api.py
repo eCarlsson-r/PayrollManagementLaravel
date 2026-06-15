@@ -52,3 +52,30 @@ class PayrollClient:
     async def flag(self, flags: list[dict[str, Any]]) -> dict[str, Any]:
         """POST /api/payroll/flag with a batch of flag records."""
         return await self._request("POST", "/api/payroll/flag", json={"flags": flags})
+
+    async def log(
+        self,
+        *,
+        content: str,
+        period: str | None = None,
+        agent: str | None = None,
+        sender_type: str = "Agent",
+        type: str = "message",
+    ) -> dict[str, Any]:
+        """POST /api/payroll/log — record a chat message for the workflow page."""
+        return await self._request(
+            "POST",
+            "/api/payroll/log",
+            json={
+                "period": period,
+                "agent": agent,
+                "sender_type": sender_type,
+                "type": type,
+                "content": content,
+            },
+        )
+
+    async def list_flags(self, period: str | None = None) -> dict[str, Any]:
+        """GET /api/payroll/flags?period= — flags with their approve/reject decision."""
+        params = {"period": period} if period else None
+        return await self._request("GET", "/api/payroll/flags", params=params)

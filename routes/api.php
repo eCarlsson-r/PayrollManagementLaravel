@@ -17,4 +17,7 @@ Route::middleware('api.key')->prefix('payroll')->group(function () {
     Route::get('/calculate', [PayrollApiController::class, 'calculate']);
     Route::post('/submit', [PayrollApiController::class, 'submit']);
     Route::post('/flag', [PayrollApiController::class, 'flag']);
+    // Workflow visibility + approval gate (Band agent pipeline).
+    Route::post('/log', [PayrollApiController::class, 'log']);
+    Route::get('/flags', [PayrollApiController::class, 'flags']);
 });

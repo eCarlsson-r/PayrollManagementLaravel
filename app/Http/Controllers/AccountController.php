@@ -131,7 +131,7 @@ class AccountController extends Controller
      */
     public function destroy(Request $request)
     {
-        auth()->user()->deletePushSubscription($request->endpoint);
+        //auth()->user()->deletePushSubscription($request->endpoint);
         auth()->logout();
         return redirect('/');
     }

@@ -6,11 +6,9 @@
 <form action={{ '/employee/'.$id }} method="post" role="form">
     @csrf
     @method('PUT')
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="pull-left"> Profile </h2>
-            <h2 class="pull-right"><button class="btn btn-primary" type="submit">Save changes</button></h2>
-        </div>
+    <div class="page-head">
+        <h2>Profile</h2>
+        <div class="page-actions"><button class="btn btn-primary" type="submit">Save changes</button></div>
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -58,7 +56,7 @@
                     </div>
                     <div class="mb-3">
                         <label> Position-POS </label>
-                        <select name="position" class="form-control" disabled>
+                        <select name="position" class="form-select" disabled>
                             <option value="Employee" {{ isset($position) && $position == 'Employee' ? 'selected' : '' }}>Staff</option>
                             <option value="Manager" {{ isset($position) && $position == 'Manager' ? 'selected' : '' }}>Manager</option>
                         </select>
@@ -67,7 +65,7 @@
                 <div class="card-body tab-pane fade" id="extras">
                     <div class="mb-3">
                         <label> Payment Method </label>
-                        <select name="pay_method" class="form-control">
+                        <select name="pay_method" class="form-select">
                             <option value="cash" {{ isset($pay_method) && $pay_method == 'cash' ? 'selected' : '' }}>Cash</option>
                             <option value="delver" {{ isset($pay_method) && $pay_method == 'delver' ? 'selected' : '' }}>Delivered to Postal Address</option>
                             <option value="trnsfr" {{ isset($pay_method) && $pay_method == 'trnsfr' ? 'selected' : '' }}>Transfer to Bank Account</option>
@@ -85,7 +83,7 @@
                     
                     <div class="mb-3">
                         <label> Work History </label>
-                        <select name="workhistory" class="form-control" multiple size="10" readonly>
+                        <select name="workhistory" class="form-select" multiple size="10" readonly>
                             @foreach ($career as $whst)
                                 <option>{{ $whst['position'] }}&emsp; From: {{ $whst['start_date'] }}&emsp; To: {{ $whst['end_date'] }}</option>
                             @endforeach

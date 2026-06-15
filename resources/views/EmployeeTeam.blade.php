@@ -15,18 +15,17 @@
             @csrf
             <div class="row">
                 <div class="col-lg-5">
+                    <h5>New Employees</h5>
                     <div class="mb-3"> 
                         <div class="input-group">
                             <input id="box1Filter" type="text" placeholder="Filter" class="form-control" />
-                            <span class="input-group-btn">
-                                <button id="box1Clear" class="btn btn-warning" type="button">
-                                    <i class="fa fa-times"></i> 
-                                </button> 
-                            </span>
-                        </div> 
+                            <button id="box1Clear" class="btn btn-warning" type="button">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <select id="box1View" name="new_employee[]" multiple="multiple" class="form-control" size="16">
+                        <select id="box1View" name="new_employee[]" multiple="multiple" class="form-select" size="16">
                             @foreach ($new_members as $member)
                                 <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }}</option>
                             @endforeach
@@ -35,7 +34,7 @@
                 </div>
                 <div class="col-lg-2 text-center">
                     @mobile
-                    <div class="mb-3 btn-group btn-group-justified">
+                    <div class="mb-3 d-flex gap-1">
                         <div class="btn-group" role="group">
                             <button name="addTeam1" type="submit" class="btn btn-primary" formaction="/recruit"> 
                                 <i class="fa fa-chevron-down"></i> 
@@ -75,18 +74,17 @@
                     @endmobile
                 </div>
                 <div class="col-lg-5">
+                    <h5>My Team Members</h5>
                     <div class="mb-3">
                         <div class="input-group">
                             <input id="box2Filter" type="text" placeholder="Filter" class="form-control" />
-                            <span class="input-group-btn"> 
-                                <button id="box2Clear" class="btn btn-warning" type="button">
-                                    <i class="fa fa-times"></i> 
-                                </button>
-                            </span>
-                        </div> 
+                            <button id="box2Clear" class="btn btn-warning" type="button">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <select id="box2View" name="team_member[]" multiple="multiple" class="form-control" size="16">
+                        <select id="box2View" name="team_member[]" multiple="multiple" class="form-select" size="16">
                             @foreach ($team_members as $member)
                                 <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->last_name }}</option>
                             @endforeach

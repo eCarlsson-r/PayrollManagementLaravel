@@ -42,11 +42,11 @@ window.Echo.private("App.Models.Account." + window["userId"]).notification((noti
     notificationObject += '<div>' + notification.title + '<br />';
 
     if (notification.type == "App\\Notifications\\FeedbackSent") {
-        notificationObject += '<span class="label label-info">Feedback</span>';
+        notificationObject += '<span class="badge text-bg-info">Feedback</span>';
     } else if (notification.type == "App\\Notifications\\DocumentUpload") {
-        notificationObject += '<span class="label label-warning">Document</span>';
+        notificationObject += '<span class="badge text-bg-warning">Document</span>';
     }
-    notificationObject += '</div></a></li><li class="divider"></li>';
+    notificationObject += '</div></a></li><li><hr class="dropdown-divider"></li>';
 
     document.querySelector("a.text-center").parentElement.parentElement.firstElementChild.insertAdjacentHTML('beforebegin', notificationObject);
 });
@@ -128,7 +128,7 @@ function initPush() {
 }
 
 function initSW() {
-    if (!"serviceWorker" in navigator) {
+    if (!("serviceWorker" in navigator)) {
         //service worker isn't supported
         return;
     }

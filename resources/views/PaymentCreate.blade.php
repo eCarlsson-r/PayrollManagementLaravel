@@ -13,12 +13,10 @@
     <div class="col-lg-12">
         <form role="form" method="POST" action="/payment">
             @csrf
-            <div class="card card-default">
-                <div class="card-header">
-                    Payments to be made
-                    <button type="submit" class="btn btn-primary btn-sm pull-right">
-                        Proceed Payment
-                    </button>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Payments to be made</span>
+                    <button type="submit" class="btn btn-primary btn-sm">Proceed Payment</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

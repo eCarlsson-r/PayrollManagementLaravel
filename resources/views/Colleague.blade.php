@@ -13,32 +13,30 @@
 	<div class="col-lg-12">
 		<form action="/colleague" method="post">
 			@csrf
-			<div class="mb-3 row">
-				<div class="col-xs-5 col-md-3">
-					<label>Select an employee to view</label>
+			<div class="mb-3 row align-items-center">
+				<div class="col-12 col-md-3">
+					<label class="form-label mb-0">Select an employee to view</label>
 				</div>
-				<div class="col-xs-7 col-md-9">
+				<div class="col-12 col-md-9">
 					<div class="input-group">
-						<select name="person" data-placeholder="Colleagues" class="form-control">
+						<select name="person" data-placeholder="Colleagues" class="form-select">
 							<option selected="selected">Please select one</option>
 							@foreach ($employees as $friend)
 								<option value="{{ $friend['id'] }}">{{ $friend['first_name'] }} {{ $friend['last_name'] }}</option>
 							@endforeach
 						</select>
-						<span class="input-group-btn">
-							<button class="btn btn-primary" type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</span>
+						<button class="btn btn-primary" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
 					</div>
 				</div>
 			</div>
 		</form>
 
 		@if ($viewColleague == "true")
-		<div class="panel panel-default" >
-			<div class="panel-heading"> Selected Employee Profile </div>
-			<div class="panel-body">
+		<div class="card">
+			<div class="card-header"> Selected Employee Profile </div>
+			<div class="card-body">
 				<div class="mb-3">
 					<label> First Name </label>
 					<input disabled class="form-control" value="{{ $colleague->first_name }}"/>
@@ -49,7 +47,7 @@
 				</div>
 				<div class="mb-3">
 					<label> Position-POS </label> 
-					<select disabled class="form-control">
+					<select disabled class="form-select">
 						<option value="SF" {{ $colleague->position == 'SF' ? 'selected' : '' }}>Staff</option>
 						<option value="MG" {{ $colleague->position == 'MG' ? 'selected' : '' }}>Manager</option>
 					</select>

@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\WorkflowController;
 
 Route::get('/', function () {
     if (auth()->guest()) return view('Login', request()->all());
@@ -66,6 +67,11 @@ Route::middleware(['auth', 'type:Admin,Manager'])->group(function() {
         Route::get('/document', 'index');
         Route::get('/document/{id}', 'show');
         Route::put('/document/{id}', 'update');
+    });
+
+    Route::controller(WorkflowController::class)->group(function() {
+        Route::get('/workflow', 'index');
+        Route::post('/workflow/flag/{id}', 'resolveFlag');
     });
 });
 

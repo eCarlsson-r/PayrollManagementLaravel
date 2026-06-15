@@ -46,9 +46,9 @@
                                 <div>
                                     {{ $notification->data['title'] }}<br /> 
                                     @if ($notification->type == "App\Notifications\FeedbackSent")
-                                        <span class="label label-info">Feedback</span>
+                                        <span class="badge text-bg-info">Feedback</span>
                                     @else
-                                        <span class="label label-warning">Document</span>
+                                        <span class="badge text-bg-warning">Document</span>
                                     @endif
                                 </div>
                             </a>
@@ -83,7 +83,7 @@
                                 <i class="fa fa-search"></i> Colleague
                             </a>
                         </li>
-                        @if (auth()->user()->type=="Manager" || auth()->user()->type=="Admin")
+                        @if (auth()->user()->type=="Manager")
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->path() == 'team') ? "active" : "" }}" href="/team/">
                                 <i class="fa fa-sitemap"></i> Manage Team
@@ -114,6 +114,12 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ (request()->path() == 'document') ? "active" : "" }}" href="/document">
                                     <i class="fa fa-upload"></i> Pending Requests
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {{ (request()->path() == 'workflow') ? "active" : "" }}" href="/workflow">
+                                    <i class="fa fa-magic"></i> Workflow
                                 </a>
                             </li>
                         @endif
@@ -162,9 +168,9 @@
                                                 <div>
                                                     {{ $notification->data['title'] }}<br /> 
                                                     @if ($notification->type == "App\Notifications\FeedbackSent")
-                                                        <span class="label label-info">Feedback</span>
+                                                        <span class="badge text-bg-info">Feedback</span>
                                                     @else
-                                                        <span class="label label-warning">Document</span>
+                                                        <span class="badge text-bg-warning">Document</span>
                                                     @endif
                                                 </div>
                                             </a>

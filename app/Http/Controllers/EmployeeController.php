@@ -142,7 +142,7 @@ class EmployeeController extends Controller
         if ($request->input('new_employee')) {
             Employee::whereIn('id', $request->input('new_employee'))->update(['manager' => auth()->user()->employee->id]);
         } else {
-            Employee::where('manager','')->where('id', auth()->user()->employee->id)->update(['manager' => auth()->user()->employee->id]);
+            Employee::where('manager','')->where('id', '!=', auth()->user()->employee->id)->update(['manager' => auth()->user()->employee->id]);
         }
         return back();
     }

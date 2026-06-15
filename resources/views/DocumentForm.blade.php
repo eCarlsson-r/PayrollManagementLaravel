@@ -14,21 +14,21 @@
         <form action="/document" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 row">
-                <div class="col-xs-3">
+                <div class="col-12 col-md-3">
                     <label>Subject of Upload </label>
                 </div>
-                <div class="col-xs-9">
-                    <select class="form-control" name="subject"/>
+                <div class="col-12 col-md-9">
+                    <select class="form-select" name="subject"/>
                         <option value="Time Card">Time Card</option>
                         <option value="Sales Receipt">Sales Receipt</option>
                     </select>
                 </div>
             </div>
             <div class="mb-3 row">
-                <div class="col-xs-3">
+                <div class="col-12 col-md-3">
                     <label>Upload File</label>
                 </div>
-                <div class="col-xs-9">
+                <div class="col-12 col-md-9">
                     <input type="file" name="file" class="file" data-show-remove="false" data-show-upload="false" accept="image/png, image/jpeg" />
                 </div>
             </div>

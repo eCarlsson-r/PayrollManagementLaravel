@@ -13,13 +13,11 @@
 
 @foreach ($documents as $document)
 	<div class="card mb-3">
-		<div class="card-header clearfix"> 
-			<h4 class="btn card-title pull-left" data-bs-toggle="collapse" data-parent="#accordion" data-bs-target="#collapse{{ $loop->index }}">
+		<div class="card-header d-flex justify-content-between align-items-center">
+			<h4 class="btn card-title mb-0" data-bs-toggle="collapse" data-bs-target="#collapse{{ $loop->index }}">
 				{{ $document->subject }} {{ $document->employee->first_name }} {{ $document->employee->last_name }}
 			</h4>
-			<h4 class="card-title pull-right">
-				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uiModal{{ $loop->index }}"> Respond Upload </button>
-			</h4>
+			<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uiModal{{ $loop->index }}"> Respond Upload </button>
 		</div>
 		<div id="collapse{{ $loop->index }}" class="card-collapse collapse in">
 			<div class="card-body">
@@ -78,7 +76,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-primary">Save changes</button>
 						</div> 
 					</form>

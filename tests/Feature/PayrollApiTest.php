@@ -126,4 +126,43 @@ class PayrollApiTest extends TestCase
         $response->assertStatus(422)
             ->assertJson(['success' => false, 'flagged_count' => 0]);
     }
+
+    public function test_log_records_workflow_message()
+    {
+        $response = $this->postJson('/api/payroll/log', [
+            'period' => '2026-06',
+            'agent' => 'Data Collector',
+            'type' => 'handoff',
+            'content' => 'Collected 5 payroll rows.',
+        ], $this->authHeaders());
+
+        $response->assertStatus(201)->assertJson(['success' => true]);
+
+        $this->assertDatabaseHas('workflow_messages', [
+            'period' => '2026-06',
+            'agent_name' => 'Data Collector',
+            'message_type' => 'handoff',
+            'content' => 'Collected 5 payroll rows.',
+        ]);
+    }
+
+    public function test_log_requires_content()
+    {
+        $this->postJson('/api/payroll/log', ['period' => '2026-06'], $this->authHeaders())
+            ->assertStatus(422);
+    }
+
+    public function test_flags_returns_decisions_for_period()
+    {
+        $this->postJson('/api/payroll/flag', [
+            'flags' => [
+                ['employee_id' => 8, 'period' => '2026-06', 'reason' => 'Below UMR'],
+            ],
+        ], $this->authHeaders())->assertStatus(201);
+
+        $this->getJson('/api/payroll/flags?period=2026-06', $this->authHeaders())
+            ->assertStatus(200)
+            ->assertJson(['success' => true, 'count' => 1])
+            ->assertJsonFragment(['employee_id' => '8', 'decision' => 'pending']);
+    }
 }

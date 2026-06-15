@@ -6,14 +6,12 @@
 <form action="/employee/" method="post" role="form">        
     @csrf
     @method("DELETE")
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="pull-left"> Employee Management </h2>
-            <h2 class="pull-right">
-                <button type="submit" class="btn btn-secondary" name="delete">Delete Employee</button>
-                <button type="reset" class="btn btn-secondary" name="clear">Reset Selection</button>
-                <a href="/employee/create" class="btn btn-primary">Add New Employee</a>
-            </h2>
+    <div class="page-head">
+        <h2>Employee Management</h2>
+        <div class="page-actions">
+            <button type="submit" class="btn btn-outline-secondary" name="delete">Delete Employee</button>
+            <button type="reset" class="btn btn-outline-secondary" name="clear">Reset Selection</button>
+            <a href="/employee/create" class="btn btn-primary">Add New Employee</a>
         </div>
     </div>
     <hr />

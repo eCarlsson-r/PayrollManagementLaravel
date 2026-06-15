@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\FlagCreated;
+use App\Events\WorkflowMessageCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Payment;
 use App\Models\PayrollFlag;
+use App\Models\WorkflowMessage;
 use App\Services\PaymentCalculator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -138,16 +141,28 @@ class PayrollApiController extends Controller
 
             $valid = $validator->validated();
 
-            $created[] = PayrollFlag::create([
-                'employee_id' => $valid['employee_id'] ?? null,
-                'period' => $valid['period'] ?? null,
-                'reason' => $valid['reason'],
-                'severity' => $valid['severity'] ?? 'warning',
-                'gross_amount' => isset($valid['gross_amount']) ? (int) round($valid['gross_amount']) : null,
-                'net_amount' => isset($valid['net_amount']) ? (int) round($valid['net_amount']) : null,
-                'data' => $valid['data'] ?? null,
-                'resolved' => false,
-            ]);
+            // Upsert so pipeline re-runs for the same employee+period reset the
+            // flag to pending instead of stacking duplicate rows that Agent 4
+            // would poll on indefinitely.
+            $flag = PayrollFlag::updateOrCreate(
+                [
+                    'employee_id' => $valid['employee_id'] ?? null,
+                    'period' => $valid['period'] ?? null,
+                ],
+                [
+                    'reason' => $valid['reason'],
+                    'severity' => $valid['severity'] ?? 'warning',
+                    'gross_amount' => isset($valid['gross_amount']) ? (int) round($valid['gross_amount']) : null,
+                    'net_amount' => isset($valid['net_amount']) ? (int) round($valid['net_amount']) : null,
+                    'data' => $valid['data'] ?? null,
+                    'resolved' => false,
+                    'decision' => 'pending',
+                    'resolved_at' => null,
+                ]
+            );
+
+            broadcast(new FlagCreated($flag)); // show the card live on /workflow
+            $created[] = $flag;
         }
 
         return response()->json([
@@ -156,5 +171,63 @@ class PayrollApiController extends Controller
             'flags' => $created,
             'errors' => $errors,
         ], $created === [] ? 422 : 201);
+    }
+
+    /**
+     * POST /api/payroll/log
+     *
+     * Records a chat message an agent posted into the Band room, so the
+     * /workflow page can visualize the conversation. Broadcasts live.
+     */
+    public function log(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'period' => ['nullable', 'string'],
+            'agent' => ['nullable', 'string'],
+            'sender_type' => ['nullable', 'string'],
+            'type' => ['nullable', 'string'],
+            'content' => ['required', 'string'],
+        ]);
+
+        $message = WorkflowMessage::create([
+            'period' => $validated['period'] ?? null,
+            'agent_name' => $validated['agent'] ?? null,
+            'sender_type' => $validated['sender_type'] ?? 'Agent',
+            'message_type' => $validated['type'] ?? 'message',
+            'content' => $validated['content'],
+        ]);
+
+        broadcast(new WorkflowMessageCreated($message));
+
+        return response()->json(['success' => true, 'id' => $message->id], 201);
+    }
+
+    /**
+     * GET /api/payroll/flags?period=YYYY-MM
+     *
+     * Returns flags (optionally for one period) with their approve/reject
+     * decision. Agent 4 polls this to learn when flagged entries are resolved.
+     */
+    public function flags(Request $request): JsonResponse
+    {
+        $query = PayrollFlag::query();
+        if ($period = $request->query('period')) {
+            $query->where('period', $period);
+        }
+
+        $flags = $query->get(['id', 'employee_id', 'period', 'decision', 'resolved', 'data']);
+
+        return response()->json([
+            'success' => true,
+            'count' => $flags->count(),
+            'flags' => $flags->map(fn ($f) => [
+                'id' => $f->id,
+                'employee_id' => $f->employee_id,
+                'period' => $f->period,
+                'decision' => $f->decision,
+                'resolved' => $f->resolved,
+                'corrected_amount' => $f->data['corrected_amount'] ?? null,
+            ]),
+        ]);
     }
 }
