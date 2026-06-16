@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PayslipController;
 use App\Http\Controllers\WorkflowController;
 
 Route::get('/', function () {
@@ -24,6 +25,8 @@ Route::middleware('guest')->group(function() {
 
 Route::middleware('auth')->group(function() {
     Route::get('/payment', [PaymentController::class, 'index']);
+    Route::get('/payslip', [PayslipController::class, 'index']);
+    Route::get('/payslip/{id}/download', [PayslipController::class, 'download']);
 
     Route::controller(AccountController::class)->group(function() {
         Route::get('/logout', 'destroy');

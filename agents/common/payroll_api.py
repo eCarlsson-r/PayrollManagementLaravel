@@ -79,3 +79,7 @@ class PayrollClient:
         """GET /api/payroll/flags?period= — flags with their approve/reject decision."""
         params = {"period": period} if period else None
         return await self._request("GET", "/api/payroll/flags", params=params)
+
+    async def payslip(self, payslips: list[dict[str, Any]]) -> dict[str, Any]:
+        """POST /api/payroll/payslip — generate PDF payslips for submitted employees."""
+        return await self._request("POST", "/api/payroll/payslip", json={"payslips": payslips})

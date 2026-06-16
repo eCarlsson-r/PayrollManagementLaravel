@@ -8,10 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Payment;
 use App\Models\PayrollFlag;
+use App\Models\Payslip;
 use App\Models\WorkflowMessage;
 use App\Services\PaymentCalculator;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -200,6 +203,76 @@ class PayrollApiController extends Controller
         broadcast(new WorkflowMessageCreated($message));
 
         return response()->json(['success' => true, 'id' => $message->id], 201);
+    }
+
+    /**
+     * POST /api/payroll/payslip
+     *
+     * Generates a PDF payslip per employee from the data Agent 4 sends after
+     * submitting payments. PDFs are stored in storage/app/payslips/ and a
+     * Payslip record is upserted (safe to call on pipeline re-runs).
+     */
+    public function payslip(Request $request): JsonResponse
+    {
+        $items = $request->has('payslips')
+            ? $request->input('payslips')
+            : [$request->except('payslips')];
+
+        $created = [];
+        $errors  = [];
+
+        foreach ($items as $index => $item) {
+            $validator = Validator::make(is_array($item) ? $item : [], [
+                'employee_id'      => ['required'],
+                'period'           => ['required', 'string'],
+                'gross'            => ['required', 'numeric'],
+                'net'              => ['required', 'numeric'],
+                'pph21'            => ['nullable', 'numeric'],
+                'bpjs_total'       => ['nullable', 'numeric'],
+                'corrected_amount' => ['nullable', 'numeric'],
+                'date'             => ['nullable', 'date'],
+            ]);
+
+            if ($validator->fails()) {
+                $errors[] = ['index' => $index, 'errors' => $validator->errors()->all()];
+                continue;
+            }
+
+            $v = $validator->validated();
+            $employee = Employee::find($v['employee_id']);
+
+            if ($employee === null) {
+                $errors[] = ['index' => $index, 'employee_id' => $v['employee_id'], 'error' => 'Employee not found.'];
+                continue;
+            }
+
+            $path = "payslips/{$v['period']}/employee_{$employee->id}.pdf";
+
+            $payslip = Payslip::updateOrCreate(
+                ['employee_id' => $employee->id, 'period' => $v['period']],
+                [
+                    'gross_amount'     => (int) round($v['gross']),
+                    'pph21'            => (int) round($v['pph21'] ?? 0),
+                    'bpjs_total'       => (int) round($v['bpjs_total'] ?? 0),
+                    'net_amount'       => (int) round($v['net']),
+                    'corrected_amount' => isset($v['corrected_amount']) ? (int) round($v['corrected_amount']) : null,
+                    'file_path'        => $path,
+                    'data'             => $v,
+                ]
+            );
+
+            $pdf = Pdf::loadView('payslip_pdf', compact('payslip', 'employee'));
+            Storage::put($path, $pdf->output());
+
+            $created[] = ['id' => $payslip->id, 'employee_id' => $employee->id, 'period' => $v['period']];
+        }
+
+        return response()->json([
+            'success'       => $errors === [],
+            'created_count' => count($created),
+            'payslips'      => $created,
+            'errors'        => $errors,
+        ], $created === [] ? 422 : 201);
     }
 
     /**

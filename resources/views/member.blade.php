@@ -131,16 +131,16 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ (request()->path() == 'payment/create') ? "active" : "" }}" href="/payment/create">
-                                <i class="fa fa-usd"></i> Proceed Payment
-                            </a>
-                        </li>
                         @endif
                 
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->path() == 'payment') ? "active" : "" }}" href="/payment">
                                 <i class="fa fa-list"></i> Payment History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->path() == 'payslip') ? "active" : "" }}" href="/payslip">
+                                <i class="fa fa-file-pdf-o"></i> Payslips
                             </a>
                         </li>
 

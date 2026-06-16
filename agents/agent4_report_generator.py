@@ -78,7 +78,22 @@ class ReportGeneratorAgent(BasePayrollAdapter):
                 await self.client.submit([self._submission(r, date) for r in approved])
                 submitted += approved
 
-        # 3) Final report (deterministic figures + optional LLM narrative).
+        corrected_map = {
+            str(r.get("employee_id")): r["_corrected_amount"]
+            for r in approved
+            if r.get("_corrected_amount")
+        }
+
+        # 3) Generate PDF payslips for every employee that was paid.
+        if submitted:
+            try:
+                await self.client.payslip(
+                    [self._payslip_payload(r, date, corrected_map) for r in submitted]
+                )
+            except Exception as exc:
+                await self._log(f"⚠ Payslip generation failed: {exc}", period=period)
+
+        # 4) Final report (deterministic figures + optional LLM narrative).
         report = self._render(rows, payload, submitted, approved, rejected)
         narrative = await self.llm.complete(
             system=(
@@ -129,10 +144,23 @@ class ReportGeneratorAgent(BasePayrollAdapter):
         }
 
     @staticmethod
+    def _payslip_payload(r: dict, date: str | None, corrected_map: dict) -> dict:
+        eid = str(r.get("employee_id"))
+        return {
+            "employee_id": r.get("employee_id"),
+            "period": date[:7] if date else None,
+            "gross": float(r.get("gross", r.get("amount", 0))),
+            "net": float(r.get("net", r.get("amount", 0))),
+            "pph21": float(r.get("pph21", 0)),
+            "bpjs_total": float(r.get("bpjs_total", 0)),
+            "corrected_amount": corrected_map.get(eid),
+            "date": date,
+        }
+
+    @staticmethod
     def _render(rows, payload, submitted, approved, rejected) -> str:
         approved_ids = {str(r.get("employee_id")) for r in approved}
         rejected_ids = {str(r.get("employee_id")) for r in rejected}
-        # _corrected_amount lives on approved rows, not on the original rows list.
         corrected_map = {
             str(r.get("employee_id")): r["_corrected_amount"]
             for r in approved
