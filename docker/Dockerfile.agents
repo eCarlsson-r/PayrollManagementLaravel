@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /agents
+
+COPY agents/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY agents/ ./
+
+# Expects env vars: BAND_AGENT1_TOKEN … BAND_AGENT4_TOKEN,
+# AIML_API_KEY, FEATHERLESS_API_KEY, LARAVEL_API_URL, BAND_API_KEY
+CMD ["sh", "-c", "\
+  python agent1_data_collection.py & \
+  python agent2_payroll_calculator.py & \
+  python agent3_compliance_review.py & \
+  python agent4_report_generator.py & \
+  wait"]

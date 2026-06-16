@@ -27,6 +27,8 @@ Thumbs.db
 # Local redis dump
 dump.rdb
 
+/storage/fonts/
+
 **/caddy
 frankenphp
 frankenphp-worker.php
