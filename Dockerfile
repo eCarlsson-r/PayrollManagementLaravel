@@ -31,8 +31,11 @@ RUN chmod +x /usr/local/bin/install-php-extensions
 # System packages (runtime only — no -dev headers needed, IPE handles those)
 RUN apk add --no-cache nginx supervisor curl
 
-# PHP extensions via IPE — fast, pre-compiled on Alpine
-RUN install-php-extensions pdo_mysql mbstring xml ctype bcmath zip opcache
+# PHP extensions via IPE.
+# mbstring, xml, ctype, opcache are pre-installed in php:8.2-fpm-alpine (IPE skips them).
+# zip is excluded: Alpine 3.24 libzip pulls in cmake+gcc+38 packages to build from source,
+# which OOM-kills the VPS when running in parallel with the node-build stage.
+RUN install-php-extensions pdo_mysql bcmath
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
