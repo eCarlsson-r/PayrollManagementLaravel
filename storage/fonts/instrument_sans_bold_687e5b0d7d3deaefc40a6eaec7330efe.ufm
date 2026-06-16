@@ -1,0 +1,147 @@
+StartFontMetrics 4.1
+Notice Converted by PHP-font-lib
+Comment https://github.com/dompdf/php-font-lib
+EncodingScheme FontSpecific
+Copyright Copyright 2022 The Instrument Sans Project Authors (https://github.com/Instrument/instrument-sans)
+FontName Instrument Sans
+FontSubfamily Bold
+UniqueID 1.000;NONE;InstrumentSans-Bold
+FullName Instrument Sans Bold
+Version Version 1.000;gftools[0.9.28]
+PostScriptName InstrumentSans-Bold
+LicenseURL https://scripts.sil.org/OFL
+Weight Bold
+ItalicAngle 0
+IsFixedPitch false
+UnderlineThickness 38
+UnderlinePosition -180
+FontHeightOffset 0
+Ascender 970
+Descender -250
+FontBBox -57 -350 1052 986
+StartCharMetrics 170
+U 32 ; WX 190 ; N space ; G 150
+U 65 ; WX 736 ; N A ; G 1
+U 160 ; WX 190 ; N uni00A0 ; G 151
+U 193 ; WX 736 ; N Aacute ; G 2
+U 256 ; WX 736 ; N Amacron ; G 5
+U 257 ; WX 571 ; N amacron ; G 81
+U 258 ; WX 736 ; N Abreve ; G 3
+U 259 ; WX 571 ; N abreve ; G 79
+U 260 ; WX 736 ; N Aogonek ; G 6
+U 261 ; WX 571 ; N aogonek ; G 82
+U 262 ; WX 750 ; N Cacute ; G 8
+U 263 ; WX 562 ; N cacute ; G 84
+U 266 ; WX 750 ; N Cdotaccent ; G 10
+U 267 ; WX 562 ; N cdotaccent ; G 86
+U 268 ; WX 750 ; N Ccaron ; G 9
+U 269 ; WX 562 ; N ccaron ; G 85
+U 270 ; WX 756 ; N Dcaron ; G 13
+U 271 ; WX 726 ; N dcaron ; G 88
+U 272 ; WX 772 ; N Dcroat ; G 14
+U 273 ; WX 628 ; N dmacron ; G 89
+U 274 ; WX 626 ; N Emacron ; G 18
+U 275 ; WX 574 ; N emacron ; G 93
+U 278 ; WX 626 ; N Edotaccent ; G 17
+U 279 ; WX 574 ; N edotaccent ; G 92
+U 280 ; WX 626 ; N Eogonek ; G 19
+U 281 ; WX 574 ; N eogonek ; G 94
+U 282 ; WX 626 ; N Ecaron ; G 16
+U 283 ; WX 574 ; N ecaron ; G 91
+U 286 ; WX 763 ; N Gbreve ; G 21
+U 287 ; WX 628 ; N gbreve ; G 96
+U 288 ; WX 763 ; N Gdotaccent ; G 23
+U 289 ; WX 628 ; N gdotaccent ; G 98
+U 290 ; WX 763 ; N uni0122 ; G 22
+U 291 ; WX 628 ; N uni0123 ; G 97
+U 294 ; WX 752 ; N Hbar ; G 24
+U 295 ; WX 619 ; N hbar ; G 99
+U 298 ; WX 254 ; N Imacron ; G 28
+U 299 ; WX 270 ; N imacron ; G 102
+U 302 ; WX 254 ; N Iogonek ; G 29
+U 303 ; WX 270 ; N iogonek ; G 103
+U 304 ; WX 254 ; N Idot ; G 27
+U 306 ; WX 667 ; N IJ ; G 26
+U 307 ; WX 528 ; N ij ; G 101
+U 310 ; WX 722 ; N uni0136 ; G 32
+U 311 ; WX 569 ; N uni0137 ; G 106
+U 313 ; WX 590 ; N Lacute ; G 34
+U 314 ; WX 270 ; N lacute ; G 108
+U 315 ; WX 590 ; N uni013B ; G 36
+U 316 ; WX 270 ; N uni013C ; G 110
+U 317 ; WX 590 ; N Lcaron ; G 35
+U 318 ; WX 368 ; N lcaron ; G 109
+U 321 ; WX 596 ; N Lslash ; G 37
+U 322 ; WX 310 ; N lslash ; G 111
+U 323 ; WX 720 ; N Nacute ; G 39
+U 324 ; WX 619 ; N nacute ; G 113
+U 325 ; WX 720 ; N uni0145 ; G 41
+U 326 ; WX 619 ; N uni0146 ; G 115
+U 327 ; WX 720 ; N Ncaron ; G 40
+U 328 ; WX 619 ; N ncaron ; G 114
+U 330 ; WX 712 ; N Eng ; G 42
+U 331 ; WX 619 ; N eng ; G 116
+U 332 ; WX 798 ; N Omacron ; G 45
+U 333 ; WX 604 ; N omacron ; G 119
+U 336 ; WX 798 ; N Ohungarumlaut ; G 44
+U 337 ; WX 604 ; N ohungarumlaut ; G 118
+U 340 ; WX 668 ; N Racute ; G 47
+U 341 ; WX 398 ; N racute ; G 121
+U 342 ; WX 668 ; N uni0156 ; G 49
+U 343 ; WX 398 ; N uni0157 ; G 123
+U 344 ; WX 668 ; N Rcaron ; G 48
+U 345 ; WX 398 ; N rcaron ; G 122
+U 346 ; WX 652 ; N Sacute ; G 51
+U 347 ; WX 504 ; N sacute ; G 125
+U 350 ; WX 652 ; N Scedilla ; G 53
+U 351 ; WX 504 ; N scedilla ; G 127
+U 352 ; WX 652 ; N Scaron ; G 52
+U 353 ; WX 504 ; N scaron ; G 126
+U 356 ; WX 672 ; N Tcaron ; G 57
+U 357 ; WX 421 ; N tcaron ; G 130
+U 362 ; WX 700 ; N Umacron ; G 62
+U 363 ; WX 611 ; N umacron ; G 135
+U 364 ; WX 700 ; N Ubreve ; G 60
+U 365 ; WX 611 ; N ubreve ; G 133
+U 366 ; WX 700 ; N Uring ; G 64
+U 367 ; WX 611 ; N uring ; G 137
+U 368 ; WX 700 ; N Uhungarumlaut ; G 61
+U 369 ; WX 611 ; N uhungarumlaut ; G 134
+U 370 ; WX 700 ; N Uogonek ; G 63
+U 371 ; WX 611 ; N uogonek ; G 136
+U 372 ; WX 1086 ; N Wcircumflex ; G 67
+U 373 ; WX 816 ; N wcircumflex ; G 140
+U 374 ; WX 712 ; N Ycircumflex ; G 71
+U 375 ; WX 543 ; N ycircumflex ; G 144
+U 376 ; WX 712 ; N Ydieresis ; G 72
+U 377 ; WX 635 ; N Zacute ; G 75
+U 378 ; WX 522 ; N zacute ; G 147
+U 379 ; WX 635 ; N Zdotaccent ; G 77
+U 380 ; WX 522 ; N zdotaccent ; G 149
+U 381 ; WX 635 ; N Zcaron ; G 76
+U 382 ; WX 522 ; N zcaron ; G 148
+U 461 ; WX 736 ; N uni01CD ; G 4
+U 462 ; WX 571 ; N uni01CE ; G 80
+U 536 ; WX 652 ; N uni0218 ; G 54
+U 537 ; WX 504 ; N uni0219 ; G 128
+U 538 ; WX 672 ; N uni021A ; G 58
+U 539 ; WX 421 ; N uni021B ; G 131
+U 567 ; WX 270 ; N uni0237 ; G 104
+U 711 ; WX 433 ; N caron ; G 169
+U 733 ; WX 414 ; N hungarumlaut ; G 168
+U 768 ; WX 0 ; N gravecomb ; G 154
+U 769 ; WX 0 ; N acutecomb ; G 155
+U 771 ; WX 0 ; N tildecomb ; G 162
+U 772 ; WX 0 ; N uni0304 ; G 163
+U 776 ; WX 0 ; N uni0308 ; G 152
+U 7808 ; WX 1086 ; N Wgrave ; G 69
+U 7809 ; WX 816 ; N wgrave ; G 142
+U 7810 ; WX 1086 ; N Wacute ; G 66
+U 7811 ; WX 816 ; N wacute ; G 139
+U 7812 ; WX 1086 ; N Wdieresis ; G 68
+U 7813 ; WX 816 ; N wdieresis ; G 141
+U 7838 ; WX 717 ; N uni1E9E ; G 55
+U 7922 ; WX 712 ; N Ygrave ; G 73
+U 7923 ; WX 543 ; N ygrave ; G 145
+EndCharMetrics
+EndFontMetrics
