@@ -22,14 +22,17 @@ RUN npm run build
 # ── Stage 2: PHP app ─────────────────────────────────────────────────────────
 FROM php:8.2-fpm-alpine AS app
 
-# System deps + PHP extensions
-RUN apk add --no-cache \
-        nginx supervisor curl zip unzip libzip-dev \
-        freetype-dev libjpeg-turbo-dev libpng-dev \
-        libxml2-dev oniguruma-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo pdo_mysql mbstring xml ctype bcmath zip gd opcache
+# install-php-extensions (IPE) uses pre-built Alpine packages where possible —
+# avoids pulling gcc/autoconf/perl/make to compile extensions from source.
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+    /usr/local/bin/install-php-extensions
+RUN chmod +x /usr/local/bin/install-php-extensions
+
+# System packages (runtime only — no -dev headers needed, IPE handles those)
+RUN apk add --no-cache nginx supervisor curl
+
+# PHP extensions via IPE — fast, pre-compiled on Alpine
+RUN install-php-extensions pdo_mysql mbstring xml ctype bcmath zip opcache
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
