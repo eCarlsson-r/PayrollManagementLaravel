@@ -7,7 +7,8 @@ providers = ["php", "node"]
 # The PHP provider runs `composer install --no-dev` (install phase).
 
 [phases.setup]
-nixPkgs = ["nginx", "supervisor"]
+nixPkgs = ["nginx"]
+aptPkgs = ["supervisor"]
 
 [start]
 cmd = "/app/docker/entrypoint.sh"
