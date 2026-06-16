@@ -1,0 +1,13 @@
+providers = ["php", "node"]
+
+# Nixpacks auto-detects PHP 8.2 (from composer.json) and Node.js (from package.json).
+# The Nix PHP package ships with all standard extensions pre-compiled — pdo_mysql,
+# bcmath, mbstring, xml, zip, gd, opcache — no source compilation needed.
+# The Node provider runs `npm ci` (install phase) and `npm run build` (build phase).
+# The PHP provider runs `composer install --no-dev` (install phase).
+
+[phases.setup]
+nixPkgs = ["nginx", "supervisor"]
+
+[start]
+cmd = "/app/docker/entrypoint.sh"
