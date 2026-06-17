@@ -1,21 +1,5 @@
-providers = ["php", "node"]
-
 [phases.setup]
-nixPkgs = ["nginx"]
-aptPkgs = [
-    "supervisor",
-    "php8.2-cli",
-    "php8.2-fpm",
-    "php8.2-mysql",
-    "php8.2-mbstring",
-    "php8.2-xml",
-    "php8.2-zip",
-    "php8.2-gd",
-    "php8.2-bcmath",
-    "php8.2-curl",
-    "php8.2-redis",
-    "composer"
-]
+nixPkgs = ["...", "python311Packages.supervisor"]
 
 [phases.build]
 cmds = [
@@ -25,7 +9,8 @@ cmds = [
     "cp /assets/worker-phpfpm.conf /etc/supervisor/conf.d/",
     "cp /assets/worker-reverb.conf /etc/supervisor/conf.d/",
     "cp /assets/supervisord.conf /etc/supervisord.conf",
-    "chmod +x /assets/start.sh"
+    "chmod +x /assets/start.sh",
+    "..."
 ]
 
 [start]
