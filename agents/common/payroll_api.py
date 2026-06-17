@@ -29,7 +29,7 @@ class PayrollClient:
 
     async def _request(self, method: str, path: str, **kwargs) -> dict[str, Any]:
         url = f"{self.base_url}{path}"
-        async with httpx.AsyncClient(timeout=self._timeout) as client:
+        async with httpx.AsyncClient(timeout=self._timeout, follow_redirects=True) as client:
             resp = await client.request(method, url, headers=self._headers(), **kwargs)
         try:
             data = resp.json()
