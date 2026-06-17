@@ -20,7 +20,6 @@ aptPkgs = [
 
 [phases.build]
 cmds = [
-    "npm run build",
     "mkdir -p /etc/supervisor/conf.d/",
     "cp /assets/worker-nginx.conf /etc/supervisor/conf.d/",
     "cp /assets/worker-phpfpm.conf /etc/supervisor/conf.d/",
