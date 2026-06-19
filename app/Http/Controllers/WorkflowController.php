@@ -7,6 +7,7 @@ use App\Models\PayrollFlag;
 use App\Models\WorkflowMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 /**
  * Human-in-the-loop workflow status page: live Band chat log + approve/reject
@@ -42,6 +43,37 @@ class WorkflowController extends Controller
             'flags' => $flags,
             'status' => $this->runStatus($messages, $flags),
         ]);
+    }
+
+    /** POST /workflow/trigger — post a trigger message to Band so Agent 1 starts the pipeline. */
+    public function trigger(Request $request): JsonResponse
+    {
+        $period = $request->input('period', now()->format('Y-m'));
+
+        $restUrl    = rtrim(config('services.band.rest_url', 'https://app.band.ai'), '/');
+        $roomId     = config('services.band.room_id');
+        $agent1Id   = config('services.band.agent1_id');
+        $triggerKey = config('services.band.trigger_key');
+
+        if (!$roomId || !$agent1Id || !$triggerKey) {
+            return response()->json(['error' => 'Band trigger not configured (BAND_ROOM_ID / BAND_AGENT1_ID / BAND_TRIGGER_KEY missing)'], 503);
+        }
+
+        $resp = Http::withToken($triggerKey)
+            ->post("{$restUrl}/api/v1/agent/chats/{$roomId}/messages", [
+                'message' => [
+                    'content'  => "@Data Collector run payroll for {$period}",
+                    'mentions' => [
+                        ['id' => $agent1Id, 'name' => 'Data Collector'],
+                    ],
+                ],
+            ]);
+
+        if (!$resp->successful()) {
+            return response()->json(['error' => 'Band API error: ' . $resp->body()], 502);
+        }
+
+        return response()->json(['success' => true, 'period' => $period]);
     }
 
     /** POST /workflow/flag/{id} — approve or reject a flagged entry, with optional net-amount correction. */

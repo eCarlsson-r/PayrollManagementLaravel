@@ -67,7 +67,7 @@
 <div class="wf-head">
     <h2>Payroll Workflow</h2>
     <span id="wf-status" class="wf-badge {{ $status }}">{{ $statusLabels[$status] ?? $status }}</span>
-    <div class="ms-auto">
+    <div class="ms-auto d-flex align-items-center gap-2 flex-wrap">
         <form method="GET" action="/workflow" class="d-flex align-items-center gap-2">
             <label class="text-muted small mb-0">Period</label>
             <select name="period" class="form-select form-select-sm" onchange="this.form.submit()">
@@ -78,6 +78,17 @@
                 @endforelse
             </select>
         </form>
+
+        {{-- Run Payroll trigger button (Admin / Manager) --}}
+        <div class="d-flex align-items-center gap-2">
+            <input type="month" id="trigger-period" class="form-control form-control-sm"
+                   value="{{ now()->format('Y-m') }}" style="width:150px">
+            <button id="trigger-btn" class="btn btn-sm btn-primary d-flex align-items-center gap-1"
+                    onclick="triggerPipeline()">
+                <i class="fa fa-play"></i> Run Payroll
+            </button>
+        </div>
+        <span id="trigger-toast" class="small" style="display:none"></span>
     </div>
 </div>
 
@@ -258,5 +269,43 @@
 
     // autoscroll on load
     (function(){ const c = document.getElementById('wf-chat'); if (c) c.scrollTop = c.scrollHeight; })();
+
+    // --- Run Payroll trigger ---
+    async function triggerPipeline(){
+        const btn    = document.getElementById('trigger-btn');
+        const toast  = document.getElementById('trigger-toast');
+        const period = document.getElementById('trigger-period').value;
+        if (!period) return;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Triggering…';
+        toast.style.display = 'none';
+
+        try {
+            const resp = await fetch('/workflow/trigger', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrf },
+                body: JSON.stringify({ period }),
+            });
+            const data = await resp.json();
+            if (resp.ok) {
+                toast.textContent = '✓ Pipeline triggered for ' + data.period;
+                toast.style.color = '#059669';
+                // Switch to the new period after a short delay so messages start arriving.
+                setTimeout(() => { window.location = '/workflow?period=' + encodeURIComponent(data.period); }, 1200);
+            } else {
+                toast.textContent = '✗ ' + (data.error ?? 'Trigger failed');
+                toast.style.color = '#dc2626';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa fa-play"></i> Run Payroll';
+            }
+        } catch(e) {
+            toast.textContent = '✗ Network error';
+            toast.style.color = '#dc2626';
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa fa-play"></i> Run Payroll';
+        }
+        toast.style.display = '';
+    }
 </script>
 @endsection

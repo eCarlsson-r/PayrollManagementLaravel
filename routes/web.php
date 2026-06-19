@@ -74,6 +74,7 @@ Route::middleware(['auth', 'type:Admin,Manager'])->group(function() {
 
     Route::controller(WorkflowController::class)->group(function() {
         Route::get('/workflow', 'index');
+        Route::post('/workflow/trigger', 'trigger');
         Route::post('/workflow/flag/{id}', 'resolveFlag');
     });
 });

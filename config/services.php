@@ -36,7 +36,11 @@ return [
     ],
 
     'band' => [
-        'api_key' => env('BAND_API_KEY'),
+        'api_key'     => env('BAND_API_KEY'),
+        'rest_url'    => env('BAND_REST_URL', 'https://app.band.ai'),
+        'room_id'     => env('BAND_ROOM_ID'),
+        'agent1_id'   => env('BAND_AGENT1_ID'),
+        'trigger_key' => env('BAND_TRIGGER_KEY'),  // any non-Agent1 agent key
     ],
 
 ];
