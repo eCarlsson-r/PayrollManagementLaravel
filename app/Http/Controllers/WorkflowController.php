@@ -59,7 +59,7 @@ class WorkflowController extends Controller
             return response()->json(['error' => 'Band trigger not configured (BAND_ROOM_ID / BAND_AGENT1_ID / BAND_TRIGGER_KEY missing)'], 503);
         }
 
-        $resp = Http::withToken($triggerKey)
+        $resp = Http::withHeaders(['X-API-Key' => $triggerKey])
             ->post("{$restUrl}/api/v1/agent/chats/{$roomId}/messages", [
                 'message' => [
                     'content'  => "@Data Collector run payroll for {$period}",
